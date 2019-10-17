@@ -1,0 +1,107 @@
+<html lang="en"><head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>three.js ROCK!</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>
+            Hello ThreeJS ! 
+        </h1>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+    
+        <script>
+            var scene = new THREE.Scene();
+    
+            var camera = new THREE.PerspectiveCamera(
+                75,//视野值
+                window.innerWidth / window.innerHeight,//基于浏览器宽高给出纵横比
+                0.1,//近平面距离 near
+                1000,//远平面距离 far
+            )
+            //设置相机在z轴上的位置
+            camera.position.z = 5;
+    
+
+            var renderer = new THREE.WebGLRenderer({antialias: true});
+            renderer.setClearColor("#e5e5e5");
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            //追加子类，渲染DOM树
+            document.body.appendChild(renderer.domElement);
+            //窗口改变同时刷新
+            window.addEventListener('resize',()=>{
+                renderer.setSize(window.innerWidth,window.innerHeight);
+                camera.aspect = window.innerWidth / window.innerHeight;
+    
+                camera.updateProjectionMatrix();
+            })
+          
+
+            //添加射线
+            var raycaster = new THREE.Raycaster();
+            var mouse = new THREE.Vector3();
+    
+            //3d包括物理形状和材料
+            var geometry = new THREE.BoxGeometry(1, 1, 1);//半径、宽度、圆滑度
+            var material = new THREE.MeshLambertMaterial({color: 0xf7f7f7});
+            //创建MESH模型
+            var mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            meshCount = 0;
+            for( var i = 0 ;i < 20 ;i++) {
+                var mesh = new THREE.Mesh(geometry, material);
+                mesh.position.x =( Math.random() - 0.5) *10;
+                mesh.position.y =( Math.random() - 0.5) *10;
+                mesh.position.z =( Math.random() - 0.5) *10;
+                scene.add(mesh);
+                meshCount++;
+            }
+    
+            var light = new THREE.PointLight(0xffffff, 1, 1000);//颜色，强度，距离
+            light.position.set(0,0,0);
+            scene.add(light);
+    
+            var light = new THREE.PointLight(0xffffff, 1, 800);
+            light.position.set(0,0,25);
+            scene.add(light);
+    
+            var render = function(){
+                //不会因为浏览器宽高影响图形
+                requestAnimationFrame(render);
+
+                renderer.render(scene,camera);
+            }
+            //不渲染就是一片黑
+        
+
+            function onMouseMove(event){
+                event.preventDefault();
+                // 将鼠标位置归一化为设备坐标。x 和 y 方向的取值范围是 (-1 to +1)            
+                mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+                mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;//盖，这里有一个负号！
+                //传入光线
+                raycaster.setFromCamera( mouse, camera );
+                // 计算物体和射线的焦点   返回数组
+                var intersects = raycaster.intersectObjects( scene.children ,true);
+                console.log(intersects)
+                // TimelineMax 和 TweenMax不一样
+                    for(let i = 0; i<intersects.length ; i++){
+                            this.tl = new TimelineMax().delay(.3);
+                            //   this.mesh.scale    => intersects[i].object.scale
+                            this.tl.to(intersects[i].object.scale, 1, {x:2, ease: Expo.easeOut})//网点，持续时间
+                            this.tl.to(intersects[i].object.scale, .5, {x:.5, ease: Expo.easeOut})
+                            this.tl.to(intersects[i].object.position, .5, {x:2, ease: Expo.easeOut})
+                            this.tl.to(intersects[i].object.rotation, .5, {y:Math.PI*.5, ease: Expo.easeOut}, "=-1.5")//提前-1.5发生
+                }
+                }
+
+            render();
+            window.addEventListener('mousemove', onMouseMove)
+    
+        </script>
+    
+    </body></html>

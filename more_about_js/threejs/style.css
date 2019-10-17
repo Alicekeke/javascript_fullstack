@@ -1,0 +1,22 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    height: 100vh;
+}
+canvas{
+    /* 页面不再有滚动条 */
+    display: block;
+}
+h1{
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    font-size: 5em;
+    width: auto;
+    text-transform: uppercase;
+    line-height: .8em;
+    border: 5px solid #000;
+    padding: .2em;
+}
