@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+}
+#wrap{
+    margin: 0 auto;
+    width: 1000px;
+    height: 600px;
+    padding: 20px;
+}
+#wrap img {
+    width: 160px;
+    height: 220px;
+    margin: 2px;
+}
+
+/* 定义好动画后放在一个类名里, 再通过js把类名放在HTML中*/
+#wrap img.rotate-animation {
+    animation: rotateAni 1s ease-in-out;
+}
+
+/* 定义动画啦！ */
+@keyframes rotateAni {
+    to {
+        transform: rotateY(360deg);
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="bg">
+        <div id="wrap" ></div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+<ml>
