@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组去重</title>
+</head>
+<body>
+    <!-- 后端传来的数据处理 -->
+    <script>
+        // 1 使用es6新API set Set 的成员具有唯一性
+        // function uniq(arr) {
+        //     return [...new Set(arr)]
+        // }
+        // console.log(uniq([1,1,1,1,1,1,1,2]));
+
+
+        // 2 最容易理解的方法，外层循环遍历元素，内层循环检查是否重复
+        // 使用indexof 循环数组找到放到目标数组中
+        function uniq(arr) {
+            // 存放去重后的目标数组
+            let result = [];
+            for(let i = 0; i<arr.length; i++){
+                if (result.indexOf(arr[i]) === -1) {
+                    result.push(arr[i])
+                }
+            }
+            return result;
+        }
+        console.log(uniq([1,1,1,1,2,2,2,3]))
+
+
+        // 3  includes 
+        //  上一种方法的改写
+        function uniq(arr) {
+            let result = [];
+            for( let i = 0; i < arr.length; i++){
+                if (result.includes(arr[i]) === false){
+                    result.push(arr[i])
+                }
+            }
+            return result;
+        }
+        console.log(uniq([1,1,1,1,2,2,2,3]))
+
+
+        // // 4 reduce
+        function uniq(arr) {
+            return arr.reduce((prev,cur) => prev.includes(cur) ? prev : [...prev, cur], [])
+        }
+
+
+        //5 Array.sort()
+        // 首先使用sort将数组进行排序，比较相邻元素是否相等，排除重复项
+        // 这种方法只做了一次排序和一次循环，所以效率会比上面的方法都要高
+        // 但是要注意sort默认元素转换为字符串，比较UTF-16代码单元值序列进行排序的，应该传入排序方法
+        function uniq(arr) {
+            let result = []
+            arr = arr.sort(function(a,b){
+                return a - b
+                // a > b时返回 >1, 不调换顺序
+                // a < b时返回 <1, 换顺序
+                // 类似于快速排序
+            })
+            for(let i = 0; i<arr.length; i++){
+                arr[i] != arr[i-1] && result.push(arr[i])
+            }
+            return result;
+        }
+       console.log(uniq([2,3,2,2,2,1,1]))
+
+
+       //6 for...of + Object
+       // 首先创建一个空对象，然后用 for 循环遍历
+       // 利用**对象的属性不会重复**这一特性，检查数组元素是否重复
+       // 性能非常高
+        function uniq(arr) {
+            let result = []
+            let obj = {}
+            for(let i of arr){
+                if(! obj[i]){
+                    result.push(i)
+                    obj[i]=1
+                }
+            }
+            return result;
+        }
+        console.log(uniq([2,3,2,2,2,1,1]))
+
+    </script>
+</body>
+</html>
