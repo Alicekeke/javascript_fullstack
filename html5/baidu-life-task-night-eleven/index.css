@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    background: url(./images/mount.png) 0 0 no-repeat;
+    background-size: cover;
+    /* background-size: 100%;不一样 */
+}
+header .mask{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 1);
+    opacity: .65;
+    overflow: hidden;
+}
+/**
+** .content主体内容区域，左右留白 
+*   图片最开始没有显示不要紧，后续用内容盒子撑开
+*   字体区高度定死不合理，用内容撑开，宽度可以定死
+*   #   选择器 有空格：选中前标签后的子元素 | 无空格：选中同时拥有对应选择器的结点eg:header标签且类名为content
+*   #   盒模型：标准|IE盒模型 计算宽高时策略不同 往外|挤压内容
+*/
+header .content{
+    width: 970px;
+    margin: 0 auto;
+    /* height: 250px; */
+    color: rgba(255, 255, 255, .7)
+}
+header .title{
+    font-size:62px;
+    font-weight:200;
+    color:rgba(255,255,255,1);
+    line-height:72px;
+    text-align: center;
+    margin-top: 208px;
+}
+header .text{
+    width:766px;
+    font-size:20px;
+    font-weight:200;
+    color:rgba(255,255,255,1);
+    line-height:32px;
+    opacity:0.7;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 86px;   
+}
+.create{
+    width: 100%;
+    border:1px solid rgba(255,255,255,.2);
+    opacity:0.6;
+    border-radius:2px;
+    padding: 40px 100px 40px;
+    margin-top: 104px;
+    margin-bottom: 220px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.create .input input{
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    width: 292px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0);
+    /* 设置字体缩进：不要让光标紧靠左边框，也可以加padding-left */
+    text-indent: 22px;
+    color: #fff;
+}
+.create .input{
+    /*  块级，flex换到一行上去
+    *   space-between 把宽占满并自适应留空隙
+    *   属性选择器 <input type="button" a="1"/> input[a="1"]
+    *   text-ailgn p标签时无固定宽度有效
+    */  
+    display: flex;
+    justify-content: space-between;
+}
+.create .input input[type="button"] {
+    width: 125px;
+    background-color: #fff;
+    color: black;
+    text-indent: 0px;
+}
+.create .title{
+    margin-top: 0;
+    font-size: 20px;
+    text-align: center;
+    margin-left: 22px;
+    font-weight: 400;
+}
+.create .profile{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size:14px;
+    opacity:0.6;
+}
