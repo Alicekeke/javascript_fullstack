@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sloth" id="sloth">
+    </div>
+    <p class="info">Force:
+        <span id="force_val">0</span>
+    </p>
+    <div class="btn_wrap">
+            <div class="btn_mask" id="btn_mask"></div>
+            <div class="force_btn" id="force_btn"></div>
+          </div>        
+    <script>
+        //****************************************************8
+        const forceBtn = document.querySelector('#force_btn');
+        const forValSpan = document.querySelector('#force_val');
+
+        forceBtn.addEventListener('touchend',()=>{
+            forceValSpan.innerHTML = 0;
+            update(0);
+        })
+
+        forceBtn.addEventListener('touchstart',(event)=>{
+            let force = event.touches[0].force;
+            update(force);
+            // console.log('you press');
+            // event.touches:当手触摸到时事件
+            forceValSpan.innerHTML = 1;
+            //navigator导航栏.userAgent用户代理.toLowCase()
+            // alert(navigator.userAgent.toLowerCase());//弹出网页提示
+            if(navigator.userAgent.toLowerCase().indexOf('iphone') == -1){
+                //辨认出非苹果手机
+                forceValSpan.innerHTML = 1;
+                update(1);
+            }
+        })
+        //根据按压变大框
+        function update(fource) {
+            //mask scale 换图片
+            let scale = 1 + Math.ceil(force*100) / 146;
+            forceValSpan.innerHTML = force;
+            document.getElementById('btn_mask').style.webkitTransform = 'scale(' + scale +')';
+        }
+        //*****************************************************8
+        const FRAME_WIDTH = 988 / 4,
+              FRAME_HIGHT = 1164 / 6,
+              MASK_WIDTH = 146;//按键的阴影
+        // es6 面向对象编程
+        class ThreeDTouch {
+            // 构造函数实例化必然执行
+            constructor(el,callback){
+                this.el = el;//挂载，指向对应对象
+                this.callback = callback;
+                this.bindEvents();//调用对象上的方法
+            }
+            bindEvents(){
+                this.el.addEventListener('touchstart',this.touchDidStart);
+
+                // this.el.addEventListener('touchforchechange',function () {
+                //     console.log('you press');
+                // })
+                //将方法组合在class方法内部
+                this.el.addEventListener('touchchechange',this.toucForceDidChange);
+            }
+            toucForceDidChange(event){
+                document.getElementById('force_val').innerHTML = event.touches[0].force;
+            }
+        }
+        let toucher = new ThreeDTouch(document.getElementById('force_btn'),function () {
+            
+        });
+    </script>
+</body>
+</html>
