@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+            function init() {
+            var width=document.documentElement.clientWidth;// clientWidth获取当前容器的宽度
+            // js控制css驼峰命名
+            document.documentElement.style.fontSize=width / 10 + 'px'; //使用cssText写法
+            }
+            init();
+            window.onresize= function(){
+            init();
+            }
+        </script>
+    <style>
+        *{
+            margin: 0;padding: 0;
+        }
+        .box{
+            /* % rem vh 都是相对单位，px是绝对单位， */
+            width: 10rem;
+        }
+        .box, .col-5 {
+            height: 20px;  /*设置弹性盒子必须要有高度撑起来*/
+            background-color: green;
+        }
+        .col-5{
+            width: 5rem;
+        }
+        .container{
+            /*弹性布局 合并一行 */
+            display: flex;
+        }
+        .container1{
+            display: flex;
+        }
+        .container .box:nth-child(even){
+            background-color: pink;
+        }
+        /* row3  width相加为10*/
+        .container1 .box:nth-child(1){
+            width: 4rem;
+            background-color: blue;
+        }
+        .container1 :nth-child(2){
+            width: 3rem;
+            background-color: red;
+        }
+        .container1 .box:nth-child(3){
+            width: 3rem;
+            background-color: yellow;
+        }
+        .row{
+            display: flex;
+            margin:5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="row container">
+        <div class="box col-5"></div>
+        <div class="box col-5"></div>
+    </div>
+    <div class="row container1">
+            <div class="box col-4"></div>
+            <div class="box col-3"></div>
+            <div class="box col-3"></div>
+        </div>
+</body>
+</html>

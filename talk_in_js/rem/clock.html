@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>花花</title>
+   <style>
+
+   body{
+       margin: 0;
+       font-size: 2rem;
+       display: flex;
+       /* 1:1:1 */
+       flex: 1;
+       min-height: 100vh;
+       background-color: #fda;
+       align-items: center;
+       justify-content: center;
+   }
+    .clock{
+        width: 30rem;
+        height: 30rem;
+        border-radius: 50%;
+        border: 2px solid white;
+        position: relative;
+        padding: 2rem;
+        box-shadow: 0 0 0 4px rgba(0,0,0,0.1),inset 0 0 0 3px #efefef,inset 0 0 10px black,0 0 10px rgba(0,0,0,.2)
+    }
+    .clock-face{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform: translateY(-3px);
+    }
+    .center{
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #000;
+        top: 230px;
+        left: 230px;
+    }
+    .hand{
+        width: 50%;
+        height: 3px;
+        background-color: black;
+        position: absolute;
+        top: 50%;
+        transform-origin: 100%;
+        transform:rotate(90deg);
+        /* 过渡效果 */
+        transition: all 0.2s; 
+    }
+    .hour-hand{
+        height: 10px;
+        width: 35%;
+        left: 75px;
+    }
+    .min-hand{
+        height: 6px;  
+    }
+   </style>
+</head>
+<body>
+     <!-- .clock>.clock>.hand*3 -->
+     <div class="clock">
+            <div class="clock-face">
+                <div class="center"></div>
+                <div class="hand hour-hand"></div>
+                <div class="hand min-hand"></div>
+                <div class="hand second-hand"></div>
+            </div>
+        </div>
+    <script>
+        // {对象object} [数组]
+        const xh = {
+            name:'小菜',
+            age: 9,
+            like:["陈老师","姑娘果"],
+        }
+        const secondHand = document.querySelector('.second-hand');
+        const minHand = document.querySelector('.min-hand');
+        const hourHand = document.querySelector('.hour-hand');
+        function setData() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const min = now.getMinutes();
+            const hour = now.getHours();
+            const minHandDegrees = ((min/60)*360) + 90;
+            const secondsDegrees = ((seconds/60)*360) + 90;
+            const hourHandDegrees = ((hour/60)*360) + 230;
+            // es6绑定常量语法
+            // console.log(secondsDegrees);
+            // console.log(minHandDegrees);
+            // console.log(hourHandDegrees);
+
+            hourHand.style.transform = `rotate(${hourHandDegrees}deg)`;
+            minHand.style.transform = `rotate(${minHandDegrees}deg)`;
+            secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+        }
+        setData();
+        // 定时器 1s刷新一次
+        setInterval(setData,1000);
+        
+    </script>
+</body>
+
+</html>
