@@ -1,0 +1,63 @@
+/* pages/index/index.wxss */
+/* swiper容器图片占满 */
+swiper{
+  height: 421.5rpx; /* 1rpx = 0.5px 父容器给宽高 子容器图片占满*/
+}
+swiper-item image{
+  width: 100%;
+  height: 100%;
+}
+/* padding 30rpx */
+.select-title,
+.newest-title{
+  width: 100%;
+  padding: 30rpx 0;
+  height: 40rpx;
+  color: #ad856d;
+  text-align: center;
+}
+.select-top,
+.select-buttom{
+  width: 100%;
+  height: 375rpx;
+
+}
+.select-top-small{
+  width: 375rpx;
+  height: 375rpx;
+  float: left;
+}
+/* 加逗号 */
+.select-top-small image, 
+.select-top-small navigator, 
+.select-buttom navigator,
+.select-buttom image{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* list详情 */
+.newest-box{
+  padding:0 40rpx;
+}
+.newest-box .newest-list{
+  display: inline-block;
+  width: 325rpx;
+  height: 325rpx;
+  margin:0 20rpx 20rpx 0;
+  border-radius: 10px;
+  text-align: center;
+  background: #f5f6f5;
+}
+.newest-box .newest-list:nth-child(2n){
+  margin-right: 0;
+}
+.newest-box .newest-list image{
+  width: 175rpx;
+  height: 175rpx;
+  margin: 20rpx 0 10rpx;
+}
+.newest-box .newest-list .newest-text{
+  font-size: 32rpx;
+}
