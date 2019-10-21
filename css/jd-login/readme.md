@@ -5,8 +5,9 @@
 - css的解析也是要花时间的  *{}费时
 
 - 要对浏览器有认识
+  
   |浏览器|内核|备注|
-  --|:--:|--:
+  --|:--:|--:|
   IE|Trident|IE、360极速、百度
   firefox|	Gecko	| Chrome老对手
   Safari	|webkit	|Webkit的鼻祖其实是 Safari。
