@@ -4,7 +4,8 @@
     <view class="cart-box">
       <!-- wx:key="{{index}}"index索引做唯一标识 item或为重复项-->
       <view class="cart-list" wx:for="{{carts}}" wx:key="{{index}}">
-        <icon type="success" size="23" color="red" data-index="{{index}}" class="cart-pro-select" bindtap="selectList" /> 
+        <icon wx:if="{{item.selected}}" type="success" size="23" color="red" data-index="{{index}}" bindtap="selectList"  class="cart-pro-select"/> 
+         <icon wx:else type="circle" size="23" bindtap="selectAll"class="cart-pro-select" /> 
         <navigator class="cart-pro-goods" url="../details/details?id={{item.id}}" >
           <image class="cart-thumb" src="{{item.image}}" />
         </navigator>

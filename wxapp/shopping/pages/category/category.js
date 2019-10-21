@@ -168,26 +168,50 @@ Page({
     })
     },
   // 左右菜单联动
- 
+  ready() {
+    console.log('hhhhhhhhhhhhhhhhh')
+    // let query = wx.createSelectorQuery().in(this)
+    // let heightArr = []
+    // let s = 0
+    // query.selectAll('.cate-box-container').boundingClientRect((react) => {
+    //   console.log(react)
+    //   react.forEach((res) => {
+    //     s += res.height
+    //     heightArr.push(s)
+    //   });
+    //   console.log(heightArr)
+    //   this.setData({
+    //     heightArr: heightArr
+    //   })
+    // });
+    // query.select('.content').boundingClientRect((res) => {
+    //   console.log(res)
+    //   //计算容器高度
+    //   this.setData({
+    //     containerH: res.height
+    //   })
+    //   console.log(res.height)
+    // }).exec()
+},
   scrollcontent(e){
-    console.log(e.detail.scrollTop)
-    let scrollTop = e.detail.scrollTop
-    let scrollArr = this.data.heightArr
-    if(scrollTop >= scrollArr[scrollArr.length - 1] - this.data.containerH){
-      return
-    }else{
-      for(let i = 0; i<scrollArr.length; i++){
-        if(scrollTop >= 0 && scrollTop < scrollArr[0]){
-          this.setData({
-            curIndex: 0
-          })
-        }else if(scrollTop >= scrollArr[i-1] && scrollTop < scrollArr[i]){
-          this.setData({
-            curIndex: i
-          })
-        }
-      }
-    }
+    // console.log(e.detail.scrollTop)
+    // let scrollTop = e.detail.scrollTop
+    // let scrollArr = this.data.heightArr
+    // if(scrollTop >= scrollArr[scrollArr.length - 1] - this.data.containerH){
+    //   return
+    // }else{
+    //   for(let i = 0; i<scrollArr.length; i++){
+    //     if(scrollTop >= 0 && scrollTop < scrollArr[0]){
+    //       this.setData({
+    //         curIndex: 0
+    //       })
+    //     }else if(scrollTop >= scrollArr[i-1] && scrollTop < scrollArr[i]){
+    //       this.setData({
+    //         curIndex: i
+    //       })
+    //     }
+    //   }
+    // }
   },
 
     
@@ -195,36 +219,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // ready(e)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function ready() {
-      let query = wx.createSelectorQuery().in(this)
-      let heightArr = []
-      let s = 0
-      query.selectAll('.cate-box-container').boundingClientRect((react) => {
-        console.log(react)
-        react.forEach((res) => {
-          s += res.height
-          heightArr.push(s)
-        });
-        console.log(heightArr)
-        this.setData({
-          heightArr: heightArr
-        })
-      });
-      query.select('.content').boundingClientRect((res) => {
-        console.log(res)
-        //计算容器高度
-        this.setData({
-          containerH: res.height
-        })
-        console.log(res.height)
-      }).exec()
-  },
+  onReady: function (options) {
+    
+},
 
   /**
    * 生命周期函数--监听页面显示

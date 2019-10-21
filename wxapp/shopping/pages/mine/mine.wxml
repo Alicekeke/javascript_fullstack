@@ -1,2 +1,24 @@
 <!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+<view class="main">
+  <view class="header">
+    <!-- 获取用户信息，昵称 -->
+    <open-data class="thumb" type="userAvatarUrl" open-gid=""></open-data>
+    <open-data class="nickname" type="userNickName" open-gid="" lang="zh_CN"></open-data>
+    <text class="about">关于我们</text>
+  </view>
+  <view class="address-box">
+    <view class="address-manage">
+      <navigator class="" url="../address/address">地址管理</navigator>
+    </view>
+    <view class="address-list">
+      <view class="name">{{address.name}}</view>
+      <view class="address">{{address.detail}}</view>
+      <view class="tel">{{address.phone}}</view>
+    </view>
+  </view>
+  <view class="order-box">
+    <view class="orders">
+      我的订单
+    </view>
+  </view>
+</view>

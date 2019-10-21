@@ -26,7 +26,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    wx.getStorage({
+      key: 'address',
+      success: (result) => {
+        console.log(result)
+        // 本地数据取成功，数据放进数据源
+        this.setData({
+          address: result.data
+        })
+      },
+      fail: () => {},
+      complete: () => {}
+    });
   },
 
   /**

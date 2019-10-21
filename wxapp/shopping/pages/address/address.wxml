@@ -1,0 +1,13 @@
+<!--pages/address/address.wxml-->
+<!-- 给用户输入页面详情的地方 -->
+<view class="main">
+  <view class="form-box">
+    <form bindsubmit="formSubmit">
+      <input placeholder="姓名" bindinput="bindName"/>
+      <input placeholder="电话号码" bindinput="bindPhone"/>
+      <input placeholder="详细地址" bindinput="bindDetail"/>
+      <!-- form-type用于 form 组件，触发 form 组件的 submit||reset 事件 -->
+      <button form-type="submit">保存</button>
+    </form>
+  </view>
+</view>
