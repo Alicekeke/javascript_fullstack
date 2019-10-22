@@ -1,0 +1,134 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,body {
+    /* 浏览器多宽，页面就有多宽 */
+    width: 100%;
+}
+
+/* 默认样式的重置 */
+ul li {
+    list-style: none;
+}
+
+.main {
+    width: 100%;
+}
+.header{
+    width: 100%;
+    /* margin在内容之外,用padding */
+    padding: 10px 5px;
+    background: #eee;
+    /* 多控制字体居中 */
+    text-align: center;
+    box-sizing: border-box;
+}
+.search {
+    width: 100%;
+}
+
+.search input {
+    width: 100%;
+    /* 兼容IE浏览器 */
+    box-sizing: border-box;
+    padding: 5px;
+    border: none;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    text-align: center;
+    outline: none;
+    margin-top: 15px;
+}
+.content{
+    width: 100%;
+}
+.content-items {
+    width: 100%;
+}
+
+.content-item {
+    /* 弹性盒子flex*/
+    display: flex;
+    padding: 10px;
+    /* 设置当前容器子容器水平/垂直居中 */
+    /* justify-content: center;  */
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.content-item .pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.pic img {
+    /* 图片上传避免宽高不合适的压缩， */
+    /* flex: 1; */
+    width: 100%;
+}
+
+.message {
+    /* 父容器被设置成弹性容器 */
+    /* flex: 1; */
+    margin-left: 10px;
+    /* 底边框 */
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.name {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.detail {
+    font-size: 12px;
+    color: #555;
+    /* 给盒子最大值 */
+    max-width: 300px;
+    /* 多行文字打点展示 */
+    overflow: hidden;
+    /* 不换行 */
+    white-space: nowrap;
+    /* 文本超出打点 */
+    text-overflow: ellipsis;
+}
+
+.footer {
+    width: 100%;
+    /* 相对于屏幕定位 */
+    position: fixed;
+    /* 永远处于屏幕最下方 */
+    bottom: 0;
+    /* p-10-0-5-0 */
+    padding: 10px 0 5px 0;
+    background-color: #eee;
+}
+
+.footer {
+    width: 100%;
+}
+.ft-items{
+    width: 100%;
+    display: flex;
+}
+
+.item {
+    flex: 1;
+    text-align: center;
+}
+
+.item img {
+    display: block;
+    width: 20px;
+    /* 针对块级容器居中自适应的方法 */
+    margin: 0 auto;
+}
+
+.item-name {
+    font-size: 12px;
+    color: #555;
+}
