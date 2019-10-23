@@ -1,0 +1,15 @@
+{
+  "name": "pic_list",
+  "version": "1.0.0",
+  "description": "URL: Universal Resource Location\r 解析restful API 解析url",
+  "main": "index.js",
+  "scripts": {
+    "dev": "json-server --watch db.json --port 1111"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.15.1"
+  }
+}

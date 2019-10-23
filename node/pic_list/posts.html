@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <title>主页</title>
+  <style>
+  .card img{
+    width: 100%;
+    height: auto;
+  }
+  </style>
+</head>
+<body>
+  <body>
+    <div class="container">
+      <h1 class="display-1 my-5">POSTS</h1>
+      <div class="row justify-content-center" id="cards">
+        <div class="col-md-6">
+          <div class="card my-3">
+            <a href="/detail.html">
+            <img src="https://resources.ninghao.net/images/candy-shop.jpg" alt="">
+            <div class="card-body">
+              <h5 class="card-title">Candy Shop</h5>
+              <div class="card-subtitle mb-2 text-black-50">Mohamed Chahin</div>
+            </div>
+          </a>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    // 请求资源 es6用fetch(默认get)请求数据   http请求是一个文件传输的请求 二进制流
+    fetch('http://localhost:1111/posts')
+    .then(data => data.json())
+    .then(data =>{
+      // data是数据数组 动态的数据数组 变为 html数组 
+      console.log(data)
+     const htmlArr = data.map((item) => {
+        // 一个card组件的html es6的字符串模板 item为遍历对象
+        return`
+        <div class="col-md-6">
+          <div class="card my-3">
+            <a href="/detail.html">
+            <img src="${item.imageUrl}" alt="">
+            <div class="card-body">
+              <h5 class="card-title">${item.title}</h5>
+              <div class="card-subtitle mb-2 text-black-50">${item.author}</div>
+            </div>
+          </a>
+          </div>
+        </div>
+        `
+      })
+      // 将一个数据数组变为你想要的数组形式
+      console.log(htmlArr)
+
+      // 使用join数组中所有元素放入一个字符串
+      // htmlArr数据数组 使用innerhtml和join拼接成一块完整的HTML字符串
+      document.getElementById('cards').innerHTML = htmlArr.join('')
+    })
+    </script>
+</body>
+</html>
