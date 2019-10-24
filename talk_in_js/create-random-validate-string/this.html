@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box">
+    this指向谁？
+  </div>
+  <script>
+    // 普通函数 this谁调用指向谁 定义的时候不算
+    // 箭头函数 定义的时候就决定了this就指向他的外面一层 而且后续无法改变
+
+    // ---------普通函数------------
+   const box = document.getElementById('box')
+  //  addEventListener回调函数, 不立即执行，点击事件发生后再回头调用
+   box.addEventListener('click',function(){
+    //  指向触发事件的结点
+     console.log(this === box)  //true
+   })
+   box.addEventListener('click',()=>{
+    //  指向触发事件的结点
+     console.log(this === window)  //true
+   })
+
+  //  对象中有一个函数
+  var obj = {
+    a: 1,
+    es5Function: function(){
+      console.log(this === obj) //true
+    }
+  }
+// this指向调用者
+  obj.es5Function()
+  // -----------箭头函数--------
+  var obj1 = {
+    a: 1,
+    es6Function: ()=>{
+      console.log(this === window)  //true
+    }
+  }
+// this指向最开始他的外面一层
+  obj1.es6Function()
+  // 如果我使用bind强行改变指向obj也不行
+  obj1.es6Function.call(obj)
+
+  </script>
+</body>
+</html>
