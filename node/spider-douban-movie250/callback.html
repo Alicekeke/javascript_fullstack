@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 手写回调
+    a(123)
+    function httpGet(url, cb){
+      setTimeout(() =>{
+        // complete 3s之后执行回
+        cb('data')
+      },3000)
+    }
+    httpGet('baidu.com',(arg) => {
+      // 获得，返回回调处理
+      console.log('arg',arg)
+    })
+    </script>
+</body>
+</html>
