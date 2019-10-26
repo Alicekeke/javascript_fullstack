@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+    <style>
+       .image-item{
+         margin-bottom: 50px;
+         height: 200px; /*按高度等比缩放*/
+         display: block;
+       }
+    </style>
+</head>
+<body>
+  <!--解决思路： 手动设置一个属性data-original  当图片出现在浏览器可视区域中将自定义属性值放进src中-->
+    <img src="" class="image-item" lazyload="true" data-original="http://img1.3lian.com/2015/a1/149/d/129.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img15.3lian.com/2015/f2/57/d/96.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img2.3lian.com/2014cf/f6/146/d/93.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://s9.knowsky.com/sc/mjpg/92/2013082412182770364.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://pic1.win4000.com/wallpaper/b/546441f1d83c2.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://www.officedoyen.com/uploads/allimg/140929/1-140929230255201.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img1.3lian.com/2015/w22/38/d/82.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://b.zol-img.com.cn/desk/bizhi/image/4/960x600/1393553860400.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://img2.3lian.com/2014cf/f6/146/d/92.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://pic1.win4000.com/wallpaper/2018-01-09/5a547c0cb840c.jpg" />
+    <img src="" class="image-item" lazyload="true" data-original="http://image.biaobaiju.com/uploads/20180802/00/1533139825-SvFkOmnxrA.jpg" />
+
+    <script>
+      // 获取整个浏览器页面高度
+     var viewHeight = document.documentElement.clientHeight
+
+     function lazyload() {
+      //  双层属性选择器
+      var images = document.querySelectorAll('img[data-original][lazyload]')
+      // 修改数组原型链上所拥有的作用域的指向到images item代表数组里的每一项
+      Array.prototype.forEach.call(images, function(item, index){
+        var rect 
+        // dataset.original == data-original
+        if (!item.dataset.original) return
+        // getBoundingClientRect()返回元素大小及其相对于视口的位置
+        rect = item.getBoundingClientRect()
+        if (rect.bottom >= 0 && rect.top < viewHeight){
+          (function() {
+            // Image在h5中和构造函数差不多, 可以创建一个image标签
+            var img = new Image()
+            img.src = item.dataset.original
+            img.onload = function() {
+              item.src = img.src
+            }
+            // 图片已经读出，移除属性
+            item.removeAttribute('data-original')
+            item.removeAttribute('lazyload')
+          })()
+        }
+      })
+     }
+    //  lazyload要在滚轮滚动时重复执行
+    // lazyload()
+    document.addEventListener('scroll', lazyload)
+    
+    </script>
+</body>
+</html>
