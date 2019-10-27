@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function fn(a){
+      console.log(a) //function a(){}
+      var a = 123
+      console.log(a)  //123
+      function a(){}
+      console.log(a)  //123
+      var b = function(){}
+      console.log(b)  //function(){}
+      function d(){}
+    }
+    fn(1)
+// -------------------------------------------------
+    function test(a, b) {
+          console.log(a)  //1
+          c = 0;
+          var c;
+          a = 3
+          b = 2
+          console.log(b)  //1
+          function b() {}
+          function d() {}
+          console.log(b)  //2
+        }
+        // AO {
+        //   c: undefined-> 0
+        //   a: undefined-> 1
+        //   b: undefined-> function(){} ->2
+        //   d: function(){}
+        // }
+        test(1)
+
+
+        global=100
+        function f(){
+          console.log(global)  //undefined;  这里AO已经有gobal，值为undefined，所以不会从GO里拿
+          global=200
+          console.log(global)  //200
+          var global=300
+        }
+        f()
+        var global
+        // AO:{
+        //   global:undefined->200
+
+        // }
+        // GO:{
+        //   global:undefined->100
+        // }
+  </script>
+</body>
+</html>
