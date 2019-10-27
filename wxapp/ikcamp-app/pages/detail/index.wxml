@@ -1,0 +1,9 @@
+<!--pages/detail/index.wxml-->
+<!-- 小程序中引入富文本  wxParse   小程序import定义模板的语法-->
+<import src="../../wxParse/wxParse.wxml" /> 
+<view >
+  <view class="content">
+    <!-- 引用模板，is="WxParse"真正使用模板 data绑定数据-->
+    <template is="wxParse" data="{{ wxParseData:article.nodes }}" ></template>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+/* pages/detail/index.wxss */
+@import '../../wxParse/wxParse.wxss';
+
+.content {
+  margin-top: 59.375rpx;
+  width: 100%;
+  margin-bottom:  147rpx;
+}

@@ -1,0 +1,19 @@
+<!-- 双层数组取数据，item名字自己定 -->
+<view class="wrapper">
+  <view class="group" wx:for="{{articleList}}">
+    <!-- 日期 -->
+    <view class="group-bar">
+      <view class="group-title">{{item.date}}</view>
+    </view>
+    <!-- 文章内容 -->
+    <view class="group-content">
+      <view class="group-content-item" wx:for="{{item.articles}}" bind:tap="gotoDetail" wx:for-item="group">
+        <!-- 两层数组，第一层叫item，第二层用for-item取名为group -->
+        <view class="group-content-item-desc">{{group.title}}</view>
+        <view>
+          <image class="group-content-item-img" src="{{group.cover}}" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
