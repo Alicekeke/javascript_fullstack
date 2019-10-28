@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>map</title>
+</head>
+
+<body>
+  <button id="btn"></button>
+  <script>
+    // es6: Map key: value 键值对是map的核心  es5的对象与es6的map有什么区别
+    // Q: 1.map有什么用？  2.为什么es6要增加map
+    // A: 1.以前的key,只支持字符串
+    // A: 2.以前的key 是无序的
+    var map = {
+      name: 'mapName',
+      // 用以前的方法，此时btn已经失去原本代表的结点含义，被转换为普通的字符串，因为以前的可以自支持字符串
+      [btn]: 'dom node',
+    }
+    // 老：以数组存取时按索引排序，不是按添加顺序排序
+    // 新：支持所有的数据类型
+    map['0'] = 'b val';
+    map['3'] = 'a val';
+    map['2'] = 'c val';
+    map['1'] = 'd val';
+
+    let es6map = new Map([
+      ['key', 'value']
+    ])
+    // 如何追加数据？
+    es6map.set('newkey', 'newvalue')
+    es6map.get('key')
+    // 任何想到的的数据类型都可以用来做key
+    es6map.set(() => {}, 'function')
+    // map的循环 遍历输出es6map中的所有值 数组 Map
+    for (let entry of es6map) {
+      console.log(entry)
+    }
+    // 一些新的强大api
+    es6map.values()
+    es6map.keys()
+    es6map.delete()
+    es6map.clear()
+    es6map.entries() //可以取到所有的[key, value]
+
+    // console.log(btn)
+    console.log(es6map)
+    // console.log(map)
+    // 取到对象上所有的键值
+    console.log(Object.keys(map))
+  </script>
+  <!-- -------1.map有什么用？---------- -->
+  <script>
+    var NameMap = {
+      lione: 'sing',
+      litwo: 'dance',
+      lithree: 'rap',
+    }
+
+    function doSomething(name) {
+      // name == lione 输出 sing
+      // name == litwo 输出 dance
+      // name == lithree 输出 rap
+      // 怎样在分支太多时避免太多ifelse，switch？ 用map进行键值对优化
+      // 中括号中name预先被定义，代表调用时被替换的变量 ;不用中括号意思就是name这个键名
+      console.log(NameMap[name])
+    }
+    doSomething('lione')
+  </script>
+  
+  <!---------- ... 拓展运算符 ----整理参数-------->
+  <script>
+    // 把数据打散
+    console.log(...[1, 2, 4]) //把数组变为散的number
+    // console.log([1, 2, 4])
+    // 实例：求最大数，一般是传个数组过来，打散后才可以调用对应api
+    console.log(Math.max(...[4, 5, 90]))
+
+    //默认参数
+    function show(a, b, ...args) {
+      console.log(a)
+      console.log(b)
+      console.log(args)
+    }
+    // 收集剩余的参数 3,4,5 => ...args:[3,4,5]
+    console.log(show(1, 2, 3, 4, 5))
+
+    let arr1 = [1, 2, 3]
+    let arr2 = [4, 5, 6]
+    //数组拆开合并 push可以合并多个值 a.push(1,2,3) 
+    arr1.push(...arr2)
+    console.log(arr1)
+    // 两个数组合并成新数组
+    let arr3 = [...arr1, ...arr2]
+    console.log(arr3)
+    
+  </script>
+</body>
+
+</html>
