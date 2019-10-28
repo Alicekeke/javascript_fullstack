@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>es6--promise</title>
+</head>
+
+<body>
+    <!-- ------------------过去出现异步的情况----------- -->
+  <script>
+    function jiacai() {
+      setTimeout(() => {
+        console.log('夹菜')
+        name = '菜'
+        // 回调，以前解决异步的方法，相当于把函数放在这里执行 -->  出现回调地狱
+        // mlt()
+
+      }, 500)
+    }
+
+    function mlt() {
+      console.log(name + '做麻辣烫')
+    }
+    jiacai() //遇到计时器，跳过执行下一个
+    mlt()
+    // 从接口做数据请求必须耗时间
+  </script>
+  <!-- -----------------------es6解决异步的方法------------- -->
+  <script>
+    function jiacai() {
+      return new Promise((resolve, reject) => {
+        // 把回调放在promise中
+        setTimeout(() => {
+          console.log('夹菜')
+          name = '菜'
+          resolve('夹好啦，这边付钱哦~')
+          reject('没钱吃不起麻辣烫')
+        }, 500)
+      })
+    }
+    // 前面这个方法具备promise的能力，后面的then才能调用     Promise.then()将异步的变为同步的
+
+    function mlt() {
+        return new Promise((resolve,reject) => {
+          setTimeout(() =>{
+          console.log(name + '做麻辣烫')
+          resolve('在煮啦~')
+        },1000)
+      })
+    }
+    function eat(){
+      console.log('吃完啦！')
+    }
+    jiacai().then(mlt)
+    // promise函数必须resolve
+    jiacai()
+            .then((res) =>{
+              console.log(res)  //成功得到resolve
+              mlt()             //麻辣烫煮完了.then开始吃
+               .then((res) =>{  //链式调用，执行完jiacai执行mlt
+              console.log(res)
+              eat()
+            })
+            })
+           
+            .catch((err) =>{
+              console.log(err)  //失败得到reject
+            })
+
+    // mlt()                           //这样还得再执行一次mlt()
+    //         .then((res) => {
+    //           console.log(res)
+    //           eat()
+    //         })
+    // <!-------------- Promise.all的用法 -------all中方法全部执行完再执行.then(value)-------->
+    Promise.all([jiacai(), mlt(),]).then((value) => {
+      console.log(value, '-----')
+      eat()
+    })
+    // <!-------------- Promise.race的用法 ------------->
+    // 哪个结果获得的快就返回哪个
+    Promise.race([jiacai(), mlt()]).then((value) => {
+      console.log(value, '------')
+      eat()
+    })
+  </script>
+</body>
+
+</html>
