@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="test">
+    <div class="msg">{{test}}</div>
+
+    <div class="wrap">
+      <!-- 容器出现其中之一 => v-if  v-else => 数据操作dom结构 -->
+      <div class="wrap1" v-if="ke" v-on:click="handle">我好帅</div>
+      <div class="wrap2" v-else>我超级帅</div>
+    </div>
+
+    <div class="wrap">
+      <ul>
+        <li v-for="list in newsList" :key="list">{{list.title}}  //  {{list.date}}</li>
+      </ul>
+    </div>
+
+    <div class="wrap">
+      <div class="content" v-html="content"></div>
+    </div>
+
+    <div class="wrap">
+      <div class="className":v-bind:class="isActive ? 'active' : ''">v-bind</div>
+      <div class="wn" :class="{good:className}">wn</div>
+    </div>
+  </div>
+ 
+  <script>
+    var app = new Vue({
+      el: '#app',   //指明el作用于什么容器
+      data (){
+        return {
+          message: 'hello world',
+          // 双向绑定，数据同步
+          test: '',
+          ke: true,
+          // dom结构的for循环
+          newsList: [
+            {title: '全国各地的梯子遭到我国长城防火墙的禁用', date:'2019/5/31'},
+            {title: '韩国瑜：准备承担2020年重担，让鬼混的民进党下台', date:'2019/6/1'},
+            {title: '冠心病“救命药”单片涨价近11倍 药企：换了包装', date:'2019/6/2'},
+            {title: '长春一天集齐雷电冰雹暴雨：有路段积水漂车，部分航班取消', date:'2019/6/3'}
+          ],
+          content: " <p>麻辣烫</p>",
+          isActive: false,
+          className: true,
+
+        }
+      },
+      methods: {
+        handle() {
+          console.log('yes!')
+        },
+      },
+      created() {},
+      beforeCreate() {},
+      mounted() {},
+      beforeMount() {},
+      updated() {},
+      beforeUpdate() {},
+      destroyed() {},
+      beforeDestroy() {}
+    })
+  </script>
+</body>
+</html>
