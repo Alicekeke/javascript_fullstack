@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Symbol-es6新增的基本数据类型</title>
+</head>
+<body>
+  <script>
+    // 解决变量重复的问题，无论调用多少次Symbol，产生的值都是唯一不重复的
+    let a = Symbol()
+    let b = Symbol()
+    console.log(a === b);
+    var obj = {
+      name: 'name',
+      name: 'name1',
+      [a]: 'symbol'
+    }
+    // 对象key支持字符串和Symbol，但是Symbol是不可枚举的
+    for (let key in obj) {
+      console.log(key);
+    }
+    console.log(Object.getOwnPropertySymbols(obj))    // 新方法枚举Symbol的key
+
+    // const SAN_JIAO = 'sanjiao123';   // 设定全局变量，要改的话只要改全局变量就可以了，内容可任意修改
+    const SAN_JIAO = Symbol('sanjiao');    // 不用关心SAN_JIAO的内容是什么，直接用Symbol代替了，也可以在括号里给Symbol一个值，无论填什么都可以，只是添加一个描述方便调试
+    function getArea (shapeName) {    // 计算面积
+      switch (shapeName) {
+        case SAN_JIAO: 
+          return 0.5 * 10 * 5;
+        case 'chang': 
+          return 10 * 5;
+      }
+    }
+    // 消除魔法字符串
+    // 魔法字符串：sanjiao 看不懂该字符串的意思但是不敢改
+    // getArea('sanjiao');
+    getArea(SAN_JIAO);
+    getArea('chang');
+  </script>
+</body>
+</html>
