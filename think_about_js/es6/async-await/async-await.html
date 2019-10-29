@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 异步  回调地狱  
+    // ----------promise.then()的解决方式------------
+    // fetch 就是发一个请求  =类似=> promise().then
+    // 上面的输入就是下面的输出，下面可以取到上面的结果
+    fetch("./id.json")
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      return fetch('./detail.json')
+      // 上面返回的可以通过下面的.then获取到
+    })
+    .then(detail => detail.json())
+    .then(data => {
+      console.log('detail', data)
+    })
+
+    // ------------async & await 异步的终极解决方式-----------
+    // await 后面接要进行异步操作的promise
+    async function getDetail(){
+      let id = await fetch('./id.json')
+      // fetch返回也是异步的 fetch返回json也是异步的
+      id = await id.json()
+      let detail = await fetch('./detail.json')
+      detail = await detail.json()
+      console.log('await',detail)
+      console.log('await',id)
+
+    }
+    getDetail()
+  </script>
+  <script>
+    //--------------async-await 详解---------------
+    // 基本用法：
+    // 1. async返回的值，会成为then()回调函数的参数
+    async function f() {
+      return 'hello world'
+    }
+    f().then((value) => {
+      console.log(value)
+    })
+
+    // 2.async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。 
+    var sleep = function (time) {
+      // 返回一个promise对象
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          resolve('ok');
+        }, time);
+      })
+    };
+    var start = async function () {
+      // 在这里使用起来就像同步代码那样直观
+      console.log('start'); //先打印start
+      setTimeout(() => {
+        console.log('waiting') //没有async，一般的回调函数
+      }, 1000)
+      // 当函数执行时，一旦遇到 await 就会先返回，等到触发的异步操作完成，再接着执行函数体内后面的语句。
+      await sleep(3000);
+      let result = await sleep(3000) //await 表示在这里等待promise返回结果了，再继续执行。
+      console.log(result) //收到ok
+      console.log('end'); //3s后打印end
+    };
+    start();
+
+    // 3.只有当 async 函数内部所有await命令的promise对象的异步操作都执行完，才会执行 then 方法的回调
+    const delay = timeout => new Promise(resolve => setTimeout(resolve, timeout));
+    async function foo() {
+      await delay(1000);
+      await delay(2000);
+      await delay(3000);
+      return 'done';
+    }
+
+    foo().then(v => console.log(v)); // 等待6s后才输出 'done'
+
+    // 注意事项：
+    // await 命令只能用在 async 函数之中，如果用在普通函数，就会报错。
+
+    // ------------------- asnyc-await 错误处理 --------------
+    // ! 当 async 函数中只要一个 await 出现 reject 状态，则后面的 await 都不会被执行。
+    // 解决办法：使用标准的try /catch捕获
+    var sleep = function (time) {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                // 模拟出错了，返回 ‘error’
+                reject('error');
+            }, time);
+        })
+    };
+
+    var start = async function () {
+        try {
+            console.log('start');
+            await sleep(3000); // 这里得到了一个返回错误
+            
+            // 所以以下代码不会被执行了
+            console.log('end');
+        } catch (err) {
+            console.log(err); // 这里捕捉到错误 `error`
+        }
+    };
+    // 多个await都可以放在try/catch中
+    start()
+  </script>
+</body>
+
+</html>
