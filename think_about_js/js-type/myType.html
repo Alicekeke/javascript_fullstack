@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>myType</title>
+</head>
+<body>
+  <script>
+    // 写一个方法判断传来的值是不是该数据类型
+    function isType(type, value) {
+      return Object.prototype.toString.call(value) === `[object ${type}]`
+    }  
+    console.log(isType('String','str'))
+    console.log(isType('Number',123))
+    console.log(isType('Function',() => {}))
+    // 这样可行，但是有没有什么方法能够把第一个参数固定住？
+    // 方法一：默认参数
+    function isString(value) {
+      return isType('String',value)
+    }
+    function isFunction(value) {
+      return isType('Function',value)
+    }
+      console.log(isString('str'))
+      console.log(isFunction(() => {}))
+
+    // 上两个都是固定第一个参数，但函数式编程想的更多，有无什么方法能把第一个参数固定住？A: bind
+      const isString = isType.bind(null, 'String')
+      const isFunction = isType.bind(null, () => {})
+
+      console.log(isString('123'))
+      console.log(isFunction(() => {}))
+
+    // 函数式编程   过程抽象
+    // 面向对象  数据抽象  比较符合人类思维
+  </script>
+</body>
+</html>

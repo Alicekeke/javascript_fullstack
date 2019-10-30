@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>typeof</title>
+</head>
+<body>
+  <!--   typeof方法   -->
+  <script>
+    // 1.typeof   
+    // js有哪几种数据类型？ 基本 | 复杂
+    // typeof 运算符返回数据的类型
+    console.log(typeof 1)   //number
+    console.log(typeof 'hello world')   //string
+    console.log(typeof null)    //null
+    console.log(typeof true)    //boolean
+    console.log(typeof undefined)   //undefined
+    console.log(typeof Symbol())  //Symbol
+
+    console.log('以下为复杂数据类型')
+    console.log(typeof function(){})    //function
+    console.log(typeof null)    //object
+    console.log(typeof {})      //object
+    console.log(typeof [1,2,3])   //object
+    console.log(typeof Date)  
+    console.log(typeof /[0-9]/)
+    console.log(typeof Error)
+
+    console.log('遗留bug，空数组返回object')  
+    // js中一切皆对象 为什么空数组typeof返回对象？
+    console.log(typeof [])    //object
+  </script>
+  <!--   constructor方法   -->
+   <script>
+      var a = []
+      console.log(a.constructor === Array)  
+      var b = null
+      var c = undefined  //null与undefined判断不出来
+      function Foo() {}
+      var a = new Foo()
+      // constructor非常不稳定，很容易被修改
+      a.constructor = Foo
+      console.log(a.constructor === Array) //constructor只不过是对象上的属性 
+  
+    </script>
+    <!--   instanceof方法   -->
+    <script>
+        //instanceof: 判断当前对象是否为该类构造出来的实例
+        function Foo(){
+    
+        }
+        var a = new Foo()
+        console.log(a instanceof Foo)
+        console.log([] instanceof Array)
+    
+        // 不适合做类型判断，本职就是判断实例和对象
+        console.log(Array instanceof Object)
+        // * instanceof Object
+        // 因为js一切皆对象
+      </script>
+</body>
+</html>

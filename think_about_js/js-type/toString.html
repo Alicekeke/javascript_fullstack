@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>toString</title>
+</head>
+<body>
+  <script>
+    // 强大的toString
+    // 被定义在原型对象的toString
+    console.log(Object.prototype.toString.call('') === `[object String]`) //String
+    console.log(Object.prototype.toString.call(null)) //Null
+    console.log(Object.prototype.toString.call(undefined)) //undefined
+    console.log(Object.prototype.toString.call(new Date())) //Date
+    console.log(Object.prototype.toString.call(/[0-9]/))  //RegExp
+    console.log(Object.prototype.toString.call({})) //object
+    // 为什么要'call'一下
+    // call 借用了 toString方法
+    // 因为找到了第一层就不会往下找了，所以我们要明确的用call拿到下一层的toString
+    // 用来做类型判断的toString方法必然是在对象类型(Object.prototype)上的 
+
+    class A {
+      toString1(){
+      }
+    }
+    class B extends A {
+    }
+    var b = new B()
+    console.log(b)
+    var f = [1,2]
+    console.log(f)
+    console.log(f.toString()) //观察区别，第一层toString执行本身的方法，转化为string值
+    console.log(Object.prototype.toString.call(f))  //输出f的数据类型
+    //f._proto_ //第1层
+    //f._proto_._proto_ === Object.prototype  //第2层 
+    console.log('第二层原型链等不等',f.__proto__.__proto__ === Object.prototype) 
+    // 函数类型同理
+    var fun = function() {}
+    console.log(fun.toString())
+    console.log(Object.prototype.toString.call(fun))
+
+    // 或者用对象字面量，因为是{} 是离Object.prototype最近的对象
+    var obj1 = function Obj1(){}
+    console.log(obj1.toString()) //输出function obj1(){}
+    var obj = {}  //对象字面量
+    console.log(obj.toString()) //输出obj的类型
+
+    // 万物皆对象
+    // 数据类型皆继承自 对象
+    // 对象上面都会有一个 toString
+    // 各个数据类型上也会有一个toString
+
+    // 为什么要'call'一下
+    function Bar() {
+      this.abc = 10
+    }
+    Bar.prototype.toFoo = function() {
+      return this.abc * 10
+    }
+    var bar = new Bar
+    console.log(Bar.prototype.toFoo.call({ abc : 100}))
+    // 现在我需要调用你在原型对象上定义的方法，现在借用一下
+    // 咋调用呢，直接调用行不通，我和你原型对象的this指向又不一样，来修正一下this
+    // 所以我要用call才能去调用你的方法
+    // call注意把实参传过去
+  </script>
+</body>
+</html>

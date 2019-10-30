@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>bind</title>
+</head>
+<body>
+  <script>
+  // 函数柯里化参数复用。本质上是降低通用性，提高适用性。
+  // call apply 与 bind 不同的地方： bind返回一个函数，达到(参数柯里化（curry）) 固定参数的目的
+  // 柯里化：柯里化是一种将使用多个参数的一个函数转换成一系列使用一个参数的函数的技术
+  function add(a, b, c) {
+    return a + b +c
+  }
+  const add10 = add.bind(null, 10)  //10已经固定在c
+  console.log(add10(20, 30))
+  // bind返回了一个固定参数的函数
+
+  </script>
+</body>
+</html>
