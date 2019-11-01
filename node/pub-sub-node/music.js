@@ -40,7 +40,7 @@ ev.on('download',(id) => {
     }
   })
 })
-// 
+// 命令行交互配置
 ev.on('select', (songLists) => {
   // prompt: 定义好的交互根据交互问题的不同，定义不同的参数 ，要求是一个数组; prompt是一个方法，直接调用就行
   inquirer.prompt([{
@@ -58,6 +58,7 @@ ev.on('select', (songLists) => {
     .then(id => {
       // console.log('选择了', id)
       id = id.song
+      // 命令行交互回调执行download方法
       ev.emit('download',id)
     })
 })
@@ -80,6 +81,7 @@ ev.on('search', (search) => {
     }
   })
 })
+
 main(process.argv.slice(2)) //发布，先订阅再发布
 //发布订阅
 // event.emit()

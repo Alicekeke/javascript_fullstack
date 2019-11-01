@@ -1,3 +1,5 @@
+// 前端工程化 管理合作完成工程化大的项目
+// node让前端变得工程化 因为node具有文件操作  js则无
 const fs = require('fs')
 // 文件模块
 fs.readFile('./index.html',(err, data) =>{
