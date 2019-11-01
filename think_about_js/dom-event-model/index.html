@@ -68,11 +68,11 @@
     console.log('out')
   },false)
   inNode.addEventListener('click',function(event){
-    event.stopImmediatePropagation()
-    event.preventDefault()
+    // event.stopImmediatePropagation()  //阻止冒泡
+    event.preventDefault()  //阻止标签跳转
     console.log('in')
   },false)
-  // 捕获打印顺序
-  // 冒泡打印顺序
+  // 捕获打印顺序 ：window,document,html,out,in
+  // 冒泡打印顺序（浏览器默认） ：in,out,html,document,window
   </script>
 </html>
