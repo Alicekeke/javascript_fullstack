@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  .in{
+    width: 100px;
+    height: 100px;
+    background-color: #fba;
+  }
+  .out{
+    width: 200px;
+    height: 200px;
+    background-color: #afb;
+  }
+</style>
+<body>
+  <div class="out">
+    <div class="in">
+      in
+    </div>
+  </div>
+  <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+  </ul>
+</body>
+<script>
+  // const lis = document.querySelectorAll('li')
+    // // 常规解法
+    // for (let el of lis){
+    //   el.addEventListener('click', () => {
+    //     console.log(el.innerHTML)
+    //   })
+    // }
+    // 避免一个个绑定 冒泡解法 在外层容器绑定事件
+    const ul = document.querySelector('ul')
+    ul.addEventListener('click', (event) => {
+      console.log(event)
+      console.log(event.target)//哪个结点被触发
+      console.log(event.currentTarget)//触发事件被绑定在哪个结点
+      //判断结点是否是寻找的结点
+      if (event.target.nodeName == 'LI') {
+        console.log(event.target.innerHTML)
+      }
+    })    
+</script>
+<script>
+  // 点击事件是只能是绑定点击事件的容器私有的吗？
+  const inNode = document.querySelector('.in')
+  const outNode = document.querySelector('.out')
+  window.addEventListener('click',function(){
+    console.log('window')
+  },false)
+  document.addEventListener('click',function(){
+    console.log('document')
+  },false)
+  document.documentElement.addEventListener('click',function(){
+    console.log('html')
+  },false)
+  outNode.addEventListener('click',function(){
+    console.log('out')
+  },false)
+  inNode.addEventListener('click',function(event){
+    event.stopImmediatePropagation()
+    event.preventDefault()
+    console.log('in')
+  },false)
+  // 捕获打印顺序
+  // 冒泡打印顺序
+  </script>
+</html>

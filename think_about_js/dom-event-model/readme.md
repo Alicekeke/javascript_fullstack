@@ -1,0 +1,23 @@
+## 事件模型
+
+冒泡    
+捕获    
+三个阶段：捕获阶段，目标阶段，冒泡阶段    
+addEventListener的第三个参数：默认为false 冒泡阶段，true为捕获阶段    
+### 阻止冒泡
+    `event.stopImmediatePropagation()`  阻止事件向上冒泡      
+    `event.preventDefault()` 阻止默认事件  如阻止a标签跳转    
+### event是啥
+  Event 接口表示在 DOM 中发生的任何事件; 一些是用户生成的（例如鼠标或键盘事件），而其他由 API 生成（例如指示动画已经完成运行的事件，视频已被暂停等等）。事件通常由外部源触发，同样也会以编程方式触发，例如执行一个 element 的一个 HTMLElement.click( ) 方法，或通过定义事件，然后使用 EventTarget.dispatchEvent( ) 将其派发到一个指定的目标。有许多类型的事件，其中一些使用基于主要事件接口的其他接口。事件本身包含所有事件通用的属性和方法。[详见](https://html.spec.whatwg.org/multipage/webappapis.html#events)
+
+### DOM0 && DOM2 && DOM3 级别的事件
+- DOM0 onclick  onclick单纯一个函数，会被后定义的属性覆盖 不能绑定多个是事件，也不能选择冒泡    
+- DOM2 addEventListener   
+- DOM3 addEventListener 增加了很多鼠标键盘事件    
+
+### 事件委托，事件代理
+利用事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。    
+> 网页版微博：鼠标移上头像显示个人信息的外部容器 怎样实现？   
+运用事件冒泡，在外部结点上绑定事件，根据(data-)自定义属性判断内部结点 是否是个人信息的结点，是则显示
+
+
