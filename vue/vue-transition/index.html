@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      height: 100%;
+      background-color: #fff;
+      color: #000;
+      font-size: 62.5%;
+    }
+
+    body {
+      min-height: 100%;
+      /* 最小高度为100%，把整个body撑大到页面高度，意味着高度可以更大 */
+      margin: 0;
+      position: relative;
+      font-size: 1.4rem;
+
+      /* 方法2 
+      display: flex;    
+      justify-content: center;
+      align-items: center;  */
+
+      /* 方法3 */
+      display: grid;
+      place-items: center;
+    }
+
+    .button {
+      /* 不知道父容器宽高的情况下，让容器去浏览器的正中间 */
+      /* 1. 
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);  */
+      color: #fff;
+      background-color: #42b983;
+      border: none;
+      /* button自带的边框 */
+      outline: none;
+      /* button自带按下去出现的蓝框 */
+      font-size: 1.8rem;
+      padding: 0.5em 1rem;
+      /* em相对于父容器里的字体大小来定的 */
+      border-radius: 0.3em;
+      cursor: pointer;
+    }
+
+    .modal {
+      width: fit-content;
+      /* 自适应 */
+      height: fit-content;
+      max-width: 22em;
+      padding: 2rem;
+      border-radius: 1rem;
+      background-color: #fff;
+      text-align: center;
+      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+      /* 盒子阴影，不加边框也有盒子效果；参数：x轴偏移量，y轴偏移量，宽度 */
+      position: fixed;
+      /* 相对于浏览器窗口定位 */
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      z-index: 999;
+    }
+
+    .modal h1,
+    .modal p {
+      margin: 0 0 1rem;
+    }
+
+    .pop-enter-active,
+    .pop-leave-active {
+      transition: transform .4s cubic-bezier(0.5, 0, 0.5, 1), opacity .4s linear;
+      /*贝塞尔曲线*/
+      ;
+    }
+
+    .pop-enter,
+    .pop-leave-to {
+      transform: scale(0.3) translateY(-50%);
+      opacity: 0;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 998;
+      background-color: #2e3e50;
+      opacity: 0.6;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity .4s linear;
+    }
+
+    /* 遮罩缓入缓出 */
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button class="button" @click="showModal = true">Show Modal</button>
+    <transition name="fade">
+      <!-- 灰色遮罩 -->
+      <div class="modal-overlay" v-if="showModal"></div>
+    </transition>
+    <transition name="pop">
+      <div class="modal" v-if="showModal">
+        <h1>Vue Transitions</h1>
+        <p>The <code>&lt;transition&gt;</code> component in Vue can create wonderful animated entrances and exits. </p>
+        <button class="button" @click="showModal = false">hide button</button>
+      </div>
+    </transition>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        showModal: false
+      }
+    }
+  })
+</script>
+
+</html>
