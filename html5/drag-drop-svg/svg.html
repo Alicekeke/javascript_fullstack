@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .circle {
+      width: 200px;
+      height: 200px;
+      border: 4px solid red;
+      border-radius: 50%;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      transform: rotate(-135deg);
+      animation: rotate 6s ease-in-out;
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(45deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <svg width="200" height="200" style="transform: rotate(-90deg);">
+    <circle r="45" cx="100" cy="100" stroke-width="3" stroke-width="3" stroke="rgba(229, 233, 242)" fill="none">
+    </circle>
+    <circle r="45" cx="100" cy="100" stroke-width="3" stroke-width="3" stroke="red" fill="none"
+      stroke-dasharray="282.7">
+    </circle>
+  </svg>
+  
+  <div class="circle"></div>
+  <script>
+    let percent = 10 //红色进程
+    let len = 2 * Math.PI * 45
+    let offset = ((100 - percent) / 100) * len //阴影进程退红色进程
+    document.querySelectorAll('svg circle')[1].setAttribute('stroke-dashoffset', offset)
+  </script>
+</body>
+
+</html>
