@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 面向对象经典的继承模式   功能拼接
+    class Button {
+      constructor(color) {
+        this.color = color
+      }
+    }
+    // extends 继承Button来的BuyItNow
+    class BuyItNow extends Button {
+      constructor(color) {
+        // super 父类的构造函数
+        super(color)
+        this.innerHTml = '购买'
+        let button = document.createElement('button')
+        button.innerHTML = this.innerHTml
+        button.style.color = this.color
+        document.body.appendChild(button)
+      }
+    }
+    console.log(new BuyItNow('red'))
+    new BuyItNow('blue')
+
+// ------------------------------------------------------
+    // 寄生组合式继承 这样是 es6 extends 采用的继承
+    function Btn(color) {
+      this.color = color
+    }
+    // 对象
+    console.log(Btn.prototype)
+    // 语法糖： 本质上还是function，编译结果不变 只是换了形式 程序员写起来更舒服，可读性更高
+    console.log(typeof BuyItNow)
+
+    function BIN(color) {
+      // 1.继承属性
+      Btn.call(this, color) //super()
+      this.innerHTML = '购买'
+    }
+    // 浅复制  直接的把Btn的原型对象赋值给BIN
+    // 其中一种继承方法 把父类的prototype 对象一个个复制给BIn
+    // 不能够继承属性
+    // BIN.prototype.click = 
+    BIN.prototype = Object.create(Btn.prototype) //2.继承方法
+    console.log(BIN.prototype) //在修正prototype之前 construct指向Btn，指向被修改了
+    // 3.修正方法
+    BIN.prototype.constructor = BIN
+    console.log(BIN.prototype) //才是一个完美的继承
+    console.log(b1 = new BIN('red'))
+    // b1 拿不到原型属性
+  </script>
+
+
+</body>
+
+</html>
