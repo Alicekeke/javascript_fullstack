@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Videos</title>
+</head>
+<body>
+  <ul class="videos">
+    <li data-time="5:43">
+      Video 1
+    </li>
+    <li data-time="2:33">
+      Video 2
+    </li>
+    <li data-time="3:45">
+      Video 3
+    </li>
+    <li data-time="0:47">
+      Video 4
+    </li>
+    <li data-time="5:21">
+      Video 5
+    </li>
+    <li data-time="6:56">
+      Video 6
+    </li>
+    <li data-time="3:46">
+      Video 7
+    </li>
+    <li data-time="5:25">
+      Video 8
+    </li>
+    <li data-time="3:14">
+      Video 9
+    </li>
+    <li data-time="3:31">
+      Video 10
+    </li>
+  </ul>
+  <script>
+    // ----------------命令式组织形式-----------------
+  // 计算所有视频的 总秒数 
+  // 选中所有的时间 循环相加
+  const timeNodes = document.querySelectorAll('li')
+  let total = 0
+  for (let time of timeNodes) {
+    // 通过dataset获取自定义属性值
+    let timeStr = time.dataset.time
+    let timeArr = timeStr.split(':')
+    let [minute, seconds] = timeArr
+    minute = parseInt(minute)
+    seconds = parseInt(seconds)
+    total += (minute * 60) + seconds
+  }
+  console.log(total)
+  // --------------------声明式组织形式---------------
+  // 不关心for的过程，只关心最后的结果  map是针对数组的方法
+  let timeHourSecond = Array.from(timeNodes).map(node => {
+    let timeStr = node.dataset.time
+    let timeArr = timeStr.split(':')
+    let [minute, seconds] = timeArr
+    minute = parseInt(minute)
+    seconds = parseInt(seconds)
+    return (minute * 60) + seconds
+  })
+  console.log(timeHourSecond) //怎样拿到所有相加的秒数
+  const totaltimeHourSecond = timeHourSecond.reduce((a, b) => a + b)
+  console.log(totaltimeHourSecond)
+  let arr = [1,2,3,4]
+  arr.reduce((pre, next) => {
+    console.log(pre, next)
+    return pre + next 
+    // 必须要有return，一次性可以拿到两个值,归递相加
+  })
+  let arr1 = [{key: 3},{key: 4},{key: 5},{key: 6}]
+  let arr1Res = arr1.reduce((a, b) => {
+    console.log(a)
+    console.log(b)
+    return ({
+      key: a.key + b.key  //键值对直接相加
+    })
+  })
+  console.log(arr1Res)
+  </script>
+</body>
+</html>
