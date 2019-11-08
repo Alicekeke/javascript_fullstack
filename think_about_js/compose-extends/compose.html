@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.bootcss.com/underscore.js/1.9.1/underscore.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 函数式编程 函数是一等公民 函数也可以当做普通变量来传递 模拟一半成功，一般失败
+    function req(err, success) {
+      setTimeout(() => {
+        let rmd = Math.random()
+        if (rmd > 0.5) {
+          success({ code: 200 })
+        } else {
+          err({ code: 500 })
+        }
+      }, 3000);
+    }
+    req((res) => {
+      console.log(res)
+    }, (res) => {
+      console.log(res)
+    })
+
+    // 函数式编程  提倡 单独的功能拆为函数
+    // 函数式，通过什么组合单一的功能？
+    // 定义函数 实现函数功能
+    function setRedColor(btn) {
+      btn.style.color = 'red'
+      return btn
+    }
+    function setInnerHtml(btn) {
+      btn.innerHTML = '立即购买'
+      return btn
+    }
+    function append(btn) {
+      document.body.appendChild(btn)
+      return btn
+    }
+    let btn = document.createElement('button')
+    setRedColor(btn)
+    setInnerHtml(btn)
+    append(btn)
+    // 插入的先后顺序关系
+    let fn1 = str => str += '123'
+    let fn2 = str => str += '456'
+    let fn3 = _.compose(fn1, fn2)
+    console.log(fn3('---')) //---456123 从后往前调用
+    // -----------------------
+    // 一次性组合调用 注意要return 因为从后往前调用 后面的结果交给前面
+    let nFn = _.compose(append, setInnerHtml, setRedColor)
+    let btn1 = document.createElement('button')
+    nFn(btn1)
+
+    // 自定义简单版 compose函数 结合curry
+    // 函数式编程的_compose和面向对象的继承 都是一个目的
+
+     // 自定义 compose 函数
+     function compose1(fn1, fn2, fn3) { // fn1, fn2, fn3 相当于上面的append, setInnerHtml, setRedColor方法
+      // 1 compose1
+      return function (params) { // params 相当于btn1
+        // 2  nFn
+        fn1(fn2(fn3(params)))
+        // 里面的输出就是外面的输入
+      }
+    }
+
+    // --------  加强版compose  --------
+    // ... 解构赋值，把参数整理为一个数组
+    function myCompose(...fns) {
+      console.log(fns)
+      return function(arg) {
+        let res = fns.pop()(arg)
+        // 从后往前循环
+        while (fns.length) {
+          let fn = fns.pop()
+          res = fn(res) //fn的输出是res的输入
+        }
+        return res
+      }
+    }
+    var fff = myCompose(append, setRedColor, setInnerHtml)
+    </script>
+</body>
+</html>
