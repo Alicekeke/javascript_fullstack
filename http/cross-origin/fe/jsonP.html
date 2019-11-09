@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function getBook(res) {
+      console.log('得到请求结果', res);
+      // 得到字符串被js解析完后json对象
+    }
+  </script>
+  <!-- script加载回来的东西被当做js执行 一旦执行就能拿到值
+  就必须让返回的方法在前端被定义回调  所以才会被执行
+  getBook(res)
+  -->
+  <script src="http://localhost:3000/api/getBook"></script>
+  <!-- 这一行会拿到getBook({bookName: 'js'}) => 当做script脚本内的js执行 -->
+  <!--相当于这一行<script>  getBook({bookName: 'js'})  </script> -->
+</body>
+</html>
