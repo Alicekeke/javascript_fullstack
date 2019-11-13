@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .scrollContainer {
+      width: 200px;
+      height: 600px;
+      border: 1px solid #fba;
+      overflow-y: scroll;
+    }
+    .targetBox {
+      width: 100px;
+      height: 100px;
+      background-color: aqua;
+      margin-top: 900px;    /* 让子元素高度超过父容器高度 */
+    }
+  </style>
+</head>
+<body>
+  <div class="scrollContainer">
+    <div class="targetBox"></div>
+  </div>
+  <script>
+    const insectionObs = new IntersectionObserver((entries) => {    /* 当蓝色框和可视区域有交叉的时候执行操作 */
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {    /* 判断蓝色框和可视区域是否有交叉 */
+          console.log(entry)           /* 输出那些节点和y有交叉关系 */
+        }
+      })
+    },
+    {
+      threshold: [0.3, 0.5, 1],    /* 阀值，出现30%，50%和100%时分别提示 */
+      rootMargin: '0px 0px -30px 0px' 
+      // 把父容器的下边框基准线向上缩30px，父容器下边框不动，当该基准线接触到到子容器时就会执行操作
+      // 正值是边框基准线向外扩，负值是往里缩
+    })
+    insectionObs.observe(document.querySelector('.targetBox'))    /* 要观察的东西 */
+  </script>
+</body>
+</html>
