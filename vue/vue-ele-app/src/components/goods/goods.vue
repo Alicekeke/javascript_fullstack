@@ -48,7 +48,7 @@
         </ul>
       </div>
       <!-- 购物车 -->
-      <v-shopcart :selectFoods = 'selectFoods' :deliveryPrice = 'seller.deliveryPrice' :minPrice = 'seller.minPrice'></v-shopcart>
+      <v-shopcart ref="shopcart" :selectFoods = 'selectFoods' :deliveryPrice = 'seller.deliveryPrice' :minPrice = 'seller.minPrice'></v-shopcart>
     </div>
   </div>
 </template>
@@ -103,7 +103,7 @@ export default {
     },
     selectFoods () {
       let foods = []
-      for (let good of this.goods) {
+      for (let good of this.goods) {  //循环当前9个菜系
         // 页面数据中字段是foods
         if (good.foods) {
           for (let food of good.foods) {
@@ -155,8 +155,15 @@ export default {
       }
       console.log(this.listHeight)
     },
-    addFood () {
-
+    // $emit() 抛出的第二个参数就是target addFood接受emit抛出来的方法  --- 子组件把拿到的值返给父组件
+    addFood (target) {
+      this._drop(target)
+    },
+    _drop (target) {
+      // 体验优化，异步执行下落动画 $nextTick保证dom结构渲染完成后执行
+      this.$nextTick(() => {
+        this.$refs.shopcart.drop(target)
+      })
     }
   }
 }

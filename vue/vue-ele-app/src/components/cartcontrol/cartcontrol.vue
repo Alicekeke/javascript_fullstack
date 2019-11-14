@@ -1,9 +1,8 @@
 <template>
   <div class="cartcontrol">
-    <transition>
-      <div class="cart-decrease" @click.stop.prevent="decreaseCart" v-show="food.count">
-        <span class="inner icon-remove_circle_outline">
-        </span>
+    <transition name="move">
+      <div class="cart-decrease" v-show="food.count>0" @click.stop.prevent="decreaseCart">
+        <span class="inner icon-remove_circle_outline"></span>
       </div>
     </transition>
     <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
@@ -19,9 +18,10 @@ export default {
     }
   },
   methods: {
-    addCart () {
+    addCart (event) {
+      // console.log(event)
       if (!this.food.count) {
-        this.$set(this.food, 'count', 1)
+        this.$set(this.food, 'count', 1) //手动set一个count字段
       } else {
         this.food.count++
       }
@@ -50,10 +50,10 @@ export default {
       font-size 24px
       color rgb(0, 160, 220)
       transition all .4s linear
-      transform rotate(0)   /**/
+      transform rotate(0)
     &.move-enter-active, &.move-leave-active
-      transition all .4s linear
-    &.move-enter, &.move-leaveborder-top
+      transition all 0.4s linear
+    &.move-enter, &.move-leave-to
       opacity 0
       transform translate3d(24px, 0, 0)
       .inner
@@ -64,7 +64,7 @@ export default {
     line-height 24px
     text-align center
     font-size 10px
-    color  rgb(147, 153 159)
+    color rgb(147, 153, 159)
     vertical-align top
   .cart-add
     display inline-block
@@ -72,5 +72,4 @@ export default {
     line-height 24px
     font-size 24px
     color rgb(0, 160, 220)
-
 </style>
