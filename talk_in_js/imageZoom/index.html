@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图片放大镜</title>
+  <style>
+  .zoom {
+  position: absolute;
+}
+.small-box {
+  position: relative;
+  width: 430px;
+  height: 430px; /*图片宽高430px 容器宽高430px*/
+  display: inline-block;
+
+}
+.mask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #666;
+  width: 210px;
+  height: 210px;
+  opacity: .6;
+}
+.layer {
+  position: absolute;
+  border: 1px solid #000;
+  width: 430px;
+  height: 430px;
+  /* 只要430*430的放大小区域 其他不要*/
+  overflow: hidden;
+  display: inline-block;
+
+}
+  </style>
+</head>
+<body>
+  <div class="zoom">
+    <div class="small-box">
+      <img src="https://img.alicdn.com/imgextra/i1/1714128138/O1CN01m9gkSC29zFkBWX7um_!!1714128138.jpg_430x430q90.jpg" alt="">
+      <!-- 蒙层靠定位固定 -->
+      <div class="mask"></div>
+    </div>
+    <div class="layer">
+      <div class="big-box">
+        <img src="https://img.alicdn.com/imgextra/i1/1714128138/O1CN01m9gkSC29zFkBWX7um_!!1714128138.jpg" alt="">
+      </div>
+    </div>
+  </div>
+  <script>
+    var point = document.querySelector('.small-box')
+    console.log(point)
+    point.addEventListener('mouseover',function (){})
+    point.addEventListener('mousemove',function (e) {
+      console.log(e)
+      let objX = e.clientX
+      let objY = e.clientY  //拿到鼠标相对的左、上值 移动变化图片就动
+      let imgClientObj = document.querySelector('.small-box').getBoundingClientRect() //相对上一步移动的距离，getBoundingClientRect返回元素大小及相对于视图的位置
+      console.log(imgClientObj)
+      let maskx = objX - imgClientObj.x - 210 / 2  //减去图片外的空白区域，没有必要参与蒙层距离的运算
+      let masky = objY - imgClientObj.y - 210 / 2
+      // 限制蒙层不要超出图片容器外
+       maskx = maskx < 0 ? 0 : maskx
+      masky = masky < 0 ? 0 : masky
+      if (maskx + 210 >= 430) {
+        maskx = 430 - 210
+      }
+      if (masky + 210 >= 430) {
+        masky = 430 - 210
+      }
+      let maskNode = document.querySelector('.mask')
+      maskNode.style.transform = `translate(${maskx}px, ${masky}px)`
+      // 计算大图的相对容器的位置
+      let percent = (800 - 430) / (430 - 210)
+      let bx = -maskx * percent, by = -masky * percent
+      let bigimage = document.querySelector('.big-box')
+      bigimage.style.transform =  `translate(${bx}px, ${by}px)`
+    })
+    point.addEventListener('mouseleave', function() {
+
+    })
+  </script>
+</body>
+</html>
