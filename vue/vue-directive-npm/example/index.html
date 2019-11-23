@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <!-- 加载自己的vue指令 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 加载自己的script -->
+  <script src="../index.js"></script>
+  <script>
+    // 以前写在页面，现在包装成组件导入
+    // let loadingNode = document.createElement('div');
+    // loadingNode.style.backgroundColor = '#eee';
+    // loadingNode.style.opacity = '.6';
+    // loadingNode.style.position = 'absolute';
+    // loadingNode.style.left = 0;
+    // loadingNode.style.top = 0;
+    // loadingNode.style.right = 0;
+    // loadingNode.style.bottom = 0;
+    // function toggleLoading(el, binding) {
+    //   if (binding.value) {
+    //     el.appendChild(loadingNode);
+    //   } else {
+    //     el.contains(loadingNode) && el.removeChild(loadingNode);
+    //   }
+    // }
+  //   Vue.directive('loading', {
+  //   bind: function (el, binding) {
+  //     // console.log(el, binding);
+  //     // bind只会在第一次绑定的时候调用一次
+  //     toggleLoading(el, binding);
+  //   },
+  //   update(el, binding) {
+  //     toggleLoading(el, binding);
+  //   }
+  // })
+  // 使用vue的方法定义组件方法
+  Vue.component('my-loading-test', {
+    template: `
+    <div v-loading="loading">
+      <li>1</li>
+      <li>2</li>
+    </div>
+    `,
+    data() {
+      return {
+        loading: false
+      }
+    },
+    mounted() {
+      setTimeout(() => {
+        this.loading = true;
+      }, 3000)
+    }
+  })
+
+  let a = 123
+  console.log(a, window.a);
+  new Vue({
+    el: '#app',
+    template: `
+    <div>
+      <my-loading-test />
+    </div>
+    `
+  })
+  </script>
+</body>
+</html>
