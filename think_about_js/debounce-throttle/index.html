@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>节流</title>
+  <style>
+    #container, #container1 {
+      width: 100%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      background-color: #fba;
+      font-size: 30px;
+    }
+    #container1 {
+      background-color: #afb;
+    }
+  </style>
+</head>
+<body>
+  <!-- 节流：在前端用户很频繁触发的事件用节流来控制，降低事件触发频率(mousemove鼠标移上去之后不停地触发, resize改变窗口大小) -->
+  <div id="container"></div>
+  <div id="container1"></div>
+  <script src="https://cdn.bootcss.com/lodash.js/4.17.15/lodash.min.js"></script>
+  <script>
+    // 1. 用时间戳判断 用最新触发的时间减去上一次回调执行的时间
+    const container = document.getElementById('container')
+    let init = 0
+    let previous = 0
+    function buyitnow () {
+      let now = new Date().getTime()    /* 根据上一次的时间判断是否满足时间间隔，满足则调用 */
+      if (now - previous >= 1000) {
+        container.innerHTML = init++    /* html页面显示 */
+        previous = now
+      }
+    }
+    container.onmousemove = buyitnow
+    // 鼠标移动即触发事件，但节流控制事件触发的时间间隔
+
+    // 2
+    const container1 = document.getElementById('container1')
+    function addCart () {
+      console.log('addCart')
+    }
+    container1.onmousemove = myThrottle(addCart, 1000)
+
+    // 函数式编程是过程抽象
+    // 高阶函数：输入是函数，输出也是函数
+    // 高阶函数体现的也是过程抽象
+    // 使用lodash封装好的节流 
+    // _.throttle(function, time)
+    function myThrottle (func, wait) {    /* 定义初始时间 */
+      let previous = 0
+      return function () {
+        let now = new Date().getTime()  //获取当前时间
+        if (now - previous >= wait) {   //事件触发时已满等待时间
+          func()          //执行既定事件
+          previous = now  //从当前时间开始重新算
+        }
+      }
+    }
+  </script>
+</body>
+</html>
