@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>callback</title>
+  <style>
+  .light {
+    width: 100px;height: 100px;
+    background-color: #000;
+    border-radius: 50%;
+  }
+  </style>
+</head>
+<body>
+  <div class="light"></div>
+  <script>
+    // 一秒后light变为红色
+  // setTimeout(() => {
+  //   document.querySelector('.light').style.backgroundColor = 'red'
+  // }, 1000);
+  // 封装成函数
+  function waitLightOn(cb) {
+   setTimeout(() => {
+      document.querySelector('.light').style.backgroundColor = 'red'
+      // callback 等灯变为红色 调用自己的方法
+      cb()
+    }, 1000);
+  }
+  waitLightOn (() => {
+    // 调用完接口中的方法，并添加自己的方法
+    console.log('1')
+    // 回调套回调
+    setTimeout(() => {
+      document.querySelector('.light').style.backgroundColor = 'orange'
+      setTimeout(() => {
+         document.querySelector('.light').style.backgroundColor = 'yellow'
+         setTimeout(() => {
+           document.querySelector('.light').style.backgroundColor = 'green'
+            setTimeout(() => {
+              document.querySelector('.light').style.backgroundColor = 'greenyellow'
+               setTimeout(() => {
+                document.querySelector('.light').style.backgroundColor = 'blue'
+                  setTimeout(() => {
+                    document.querySelector('.light').style.backgroundColor = 'purple'
+                 }, 1000);
+               }, 1000);
+            }, 1000);
+         }, 1000);
+       }, 1000);
+    }, 1000);
+  })
+
+  // promise冲冲冲！
+  </script>
+</body>
+</html>

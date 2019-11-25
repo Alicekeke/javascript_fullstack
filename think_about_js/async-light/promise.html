@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>promise</title>
+  <style>
+      .light {
+        width: 100px;height: 100px;
+        background-color: #000;
+        border-radius: 50%;
+      }
+      </style>
+</head>
+<body>
+  <div class="light"></div>
+</body>
+<script>
+  // Promise接收一个用来异步执行的function,这个function接收两个形参,这两个形参在Promise后续的.then传入响应的func
+
+  const light = document.querySelector('.light')
+  let changeRed = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
+      light.style.backgroundColor = 'red'
+      resolve()   //同callback(),通知方法外自己结束回调
+    }, 1000);
+  })
+  //let method = () => new Methods() 这种写法是套用了两层 方法外再套一个方法 以便在promise调用时返回方法 防止定时器同时开启变同步
+  let changeOrange = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
+      light.style.backgroundColor = 'orange'
+      resolve()
+    }, 1000);
+  })
+  let changeGreen = () => new Promise((resolve, reject) => {
+    setTimeout(() => {
+      light.style.backgroundColor = 'green'
+      resolve()
+    }, 1000);
+  })
+let changeGreenYellow = () => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    light.style.backgroundColor = 'greenyellow'
+    resolve()
+  },1000)
+})
+let changeBlue = () => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    light.style.backgroundColor = 'blue'
+    resolve()
+  },1000)
+})
+let changePurple = () => new Promise((resolve, reject) => {
+  setTimeout(() => {
+    light.style.backgroundColor = 'purple'
+    resolve()
+  },1000)
+})
+
+// promise 链式调用风格
+  changeRed()
+  .then(res => {  //在这里等待promise成功之后执行
+    // then是一个函数，return promise 之后 后面还可以接着调用then
+    return changeOrange()
+  })
+  .then (res => {
+    setTimeout(() => {
+      light.style.backgroundColor = 'yellow'
+    },1000)
+  })
+  .then(changeGreen)
+  .then(changeGreenYellow)
+  .then(changeBlue)
+  .then(changePurple)
+ 
+  // --------------------------
+
+  // async牛大了 同步写异步 必须搭配使用 只需要几行
+  // async function run() {
+  //   await changeRed()
+  //   await changeGreen()
+  // }
+  // run()
+</script>
+</html>
