@@ -1,0 +1,38 @@
+<!-- pages/personal/personal.wxml -->
+<!-- 顺便试一下瀑布流 -->
+<view scroll-y="true">
+  <!-- 上部展示框 -->
+  <view class="wel">
+    <view class="logo-wrapper">
+      <image class="logo" src="../../images/logo.PNG" />
+    </view>
+    <view class="serach-input" bindtap="serach">
+      <image class="serach-input-image" src="../../images/search .png" />
+      今天想吃点什么？
+    </view>
+    <view class="sologn-wrapper">
+      <view class="sologn">唯美食与爱不可辜负</view>
+    </view>
+  </view>
+  <!-- 瀑布流 -->
+  <view style="width:100%">
+    <view class="img_item">
+      <view wx:for="{{col1}}" wx:key="id" class='menuListItem' bindtap='ShowInfo' data-id='{{item.id}}'>
+        <image src="{{item.imageUrl}}" mode="widthFix" style="width:100%;"></image>
+        <view class='item-info'>
+          <view class='title'>{{item.title}}</view>
+          <view class='score'>{{item.score}}分 · {{item.peodid}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="img_item">
+      <view wx:for="{{col2}}" wx:key="id" class='menuListItem' bindtap='ShowInfo' data-id='{{item.id}}'>
+        <image src="{{item.imageUrl}}" mode="widthFix" style="width:100%;"></image>
+        <view class='item-info'>
+          <view class='title'>{{item.title}}</view>
+          <view class='score'>{{item.score}}分 · {{item.peodid}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

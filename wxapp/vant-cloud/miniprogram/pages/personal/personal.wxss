@@ -1,0 +1,71 @@
+/* pages/personal/personal.wxss */
+/* 瀑布流 */
+.wel{
+  width: 100%;
+}
+.img_item {
+  /* 一列占宽48% */
+  width: 48%;
+  margin: 1%;
+  display: inline-block;
+  vertical-align: top;
+}
+.logo-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content:center;
+  margin-top: 100rpx;
+  margin-bottom: 100rpx;
+}
+.logo{
+  width: 172rpx;
+  height: 58rpx;
+}
+.serach-input{
+  display: flex;
+  justify-content:center;
+  width: 660rpx;
+  height: 100rpx;
+  color: #666;
+  background-color: #f3f3f3;
+  font-size: 20px;
+  margin-bottom: 40rpx;
+}
+.serach-input-image{
+  padding-left: 80rpx;
+  padding-right: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+.sologn-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50rpx;
+}
+.sologn-wrapper .sologn{
+  color: #666;
+  font-size: 12px;
+}
+.img_item .menuListItem{
+  margin-bottom: 30rpx;
+}
+.img_item image{
+  border-radius: 2%;
+}
+.img_item .item-info .title{
+  width: 100%;
+  font-size: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.img_item .item-info .score{
+  font-size: 10px;
+  color: #666;
+
+}
+.name{
+  text-align: center;
+  line-height: 58rpx;
+}
