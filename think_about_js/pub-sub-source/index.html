@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn">click</button>
+  <img src="" alt="" onload="">
+  <script>
+    const btn = document.getElementById('btn')
+    // 关于事件的基本上都是一个发布订阅模式  在这里订阅了btn的点击事件 cilck事件是一个发布，鼠标点击是一个订阅
+    btn.addEventListener('click',() => {
+      console.log(1)
+    })
+  </script>
+</body>
+</html>
