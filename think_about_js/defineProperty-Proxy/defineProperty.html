@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let data = {
+      name: 'keke'
+    }
+    data.sex = 'boy'
+// mushtach 双括号模板 改变data 
+    // 模板要知道 data什么时候被修改
+    // object.defineProperty()
+    // defineProerty 把属性定义的粒度定义的更细
+    // 第一个参数： obj 当前定义对象 ； 第二个参数 ： prop 当前属性名 第三个参数: 数据 描述符
+    Object.defineProperty(data, 'sex', {
+      enumerable: true, //可枚举
+      writable: false,
+      value: 'girl',  
+    })
+    console.log(data.sex);
+    for(let key in data) {
+      console.log(key)
+    }
+    // 2、存取描述符
+    // 监听对象的get set有没有被修改
+    Object.defineProperty(data, 'name', {
+      // get检测对象的获取
+      get: () => {
+        return data.name
+      },
+      // set接收唯一参数 并将参数分配给对象 检测对象的修改
+       set: (val) => {
+        console.log('我知道改变了，重新渲染一次');
+        // 哇 写data.name直接死循环 堆栈溢出了 
+        this.name = val;
+      },
+    })
+    data.name = 'abcd'
+    console.log(data);
+    
+    // 监测数组的改变
+    let  list = [1,2,3,4]
+    // push方法存在于内置的Array对象中 Array.prototype.push
+    // 试着改变整个push的行为
+    let originPush = Array.prototype.push //备份 修改原来的push方法
+    Array.prototype.push = (...args) => {
+      console.log('我知道数组改变了');
+      originPush.apply(this, args)    //push需要this和参数 整理参数再传递
+    }
+    list.push(5)  //没有加进去
+    console.log(data2)
+
+    </script>
+</body>
+</html>
