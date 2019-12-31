@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 处理链式调用 .then().then()
+    const PENDING = 'PENDING';
+    const RESLOVED = 'RESLOVED';
+    const REJECTED = 'REJECTED'
+
+    function MyPromise(cb) {
+      let self = this;
+      this.status = PENDING;
+      function resolve(val) {
+        console.log(val);
+        self.data = val;
+        self.status = RESLOVED;
+        // onResolve存在就执行then里的回调
+        self.onResolve && self.onResolve(val)
+      }
+      cb(resolve)
+    }
+
+    MyPromise.prototype.then = function (onResolve) {
+      if (this.status === RESLOVED) {
+        onResolve(this.data)
+      }
+      if (this.status === PENDING) {
+        // 告诉构造函数里面的 resolve
+        this.onResolve = onResolve
+        // 链式调用 返回promise
+        return new MyPromise((resolve) => {
+          // 1. resolve(??) 上一步的结果
+          // 2. 上一步的结果 this.data
+          // reslove(this.data)
+          // 需要重写onResolve
+          this.onResolve = function (val) {
+            // 1. 上一个 then 拿到结果
+            // 保证最初的功能正常 传什么给onResolve就原封不动传回去 在有了链式调用后 加强版的onResolve要保证之后的resolve过程
+            let res = onResolve(val)
+            resolve(res)
+          }
+        })
+      }
+    }
+
+    let p = new MyPromise((resolve) => {
+      setTimeout(() => {
+        resolve('success')
+      }, 3000);
+    })
+    p.then((res) => {
+      console.log(res);
+      // 上一步拿到res再return
+      return res
+    })
+      // 第二个then怎么拿到第一个then的结果？
+      .then((res) => {
+        console.log('res2', res);
+      })
+  </script>
+</body>
+
+</html>
