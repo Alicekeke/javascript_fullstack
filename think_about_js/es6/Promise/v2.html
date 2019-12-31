@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 添加promise的三个状态 控制then在回调中的调用时机
+    // 构造函数和then不断的this挂接状态
+    const PENDING = 'PENDING';
+    const RESLOVED = 'RESLOVED';
+    const REJECTED = 'REJECTED'
+
+    function MyPromise(cb) {
+      let self = this;
+      this.status = PENDING;
+      function resolve(val) {
+        console.log(val);
+        self.data = val;
+        self.status = RESLOVED;
+        // 执行then里的回调
+        self.onReslove && self.onReslove(val)
+      }
+      self.status = REJECTED
+      cb(resolve)
+    }
+    MyPromise.prototype.then = function(onReslove) {
+      if (this.status === RESLOVED) {
+        onReslove(this.data)
+      }
+      if (this.status === PENDING) {
+        // 告诉构造函数里面的 resolve
+        this.onReslove = onReslove  
+      }
+    }
+
+    let p = new MyPromise((resolve) =>{
+      setTimeout(() => {
+          resolve('success')
+      }, 3000);
+    })
+    p.then(res => {
+      console.log(res);
+      // 没有等待3s即输出undefined 应该判断回调状态 等待3s 涉及promise的三个状态
+    })
+    </script>
+</body>
+</html>
