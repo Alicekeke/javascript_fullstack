@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /*
+      promise解决回调地狱 就是改为then的链式调用形式 把异步写成同步
+      首先了解promise的实现 接收一个回调函数 .then在某个时机拿到resolve的结果
+    */
+    function MyPromise(cb) {
+      // 普通函数保存下this
+      let self = this;
+      function resolve(val) {
+        // console.log(val);
+        self.data = val;
+      }
+      // 在被new的时候运行 cb要把一个回调函数传出去 又需要一个回调函数
+      cb(resolve)
+    }
+    MyPromise.prototype.then = function(onReslove) {
+      // 让then能够拿到resolve的结果 先放上去 .then再把它取下来
+      onReslove(this.data)
+    }
+
+    let p = new MyPromise((resolve) =>{
+      resolve('success')
+    })
+    // .then在某个时机 拿到resolve的结果
+    p.then(res => {
+      console.log(res);
+    })
+    </script>
+
+</body>
+</html>
