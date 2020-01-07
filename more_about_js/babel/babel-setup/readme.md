@@ -9,10 +9,12 @@ js编译器 解决浏览器的自身对于es语言的差异性的工具 在项�
     针对不同的功能提供不同的插件[插件详情](https://babeljs.io/docs/en/plugins)
     一个个选择插件再引入很麻烦，提出preset概念，插件包套餐
 
-
-    ##### presets：预设，把所有的插件结合起来
+    presets：预设，把所有的插件结合起来
       @babel/preset-env   
-      .browserslistrc: 指定特定的目标浏览器 设置兼容![browserslistrc](https://github.com/browserslist/browserslist#queries)
+
+  
+- browserslistrc: 指定特定的目标浏览器 设置兼容
+  ![browserslistrc](https://github.com/browserslist/browserslist#queries)
 
 - @babel/polyfill (垫片 抹平各个浏览器之间的差异) 
      让目标浏览器支持所有特性,  
@@ -44,4 +46,4 @@ js编译器 解决浏览器的自身对于es语言的差异性的工具 在项�
 
 ### 按需引入
 [参考](https://www.jianshu.com/p/cbd48919a0cc)
-[入门](https://juejin.im/post/5ddff3abe51d4502d56bd143#heading-17)
+[文档](https://www.babeljs.cn/docs/)
