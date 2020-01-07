@@ -1,0 +1,19 @@
+{
+  "name": "babel-setup",
+  "version": "1.0.0",
+  "description": "js编译器 在项目中使用最新的语法 babel帮助我们向下兼容",
+  "main": "index.js",
+  "scripts": {
+    "complier": "babel src --out-dir dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.7.7"
+  }
+}

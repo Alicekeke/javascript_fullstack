@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-transform-runtime"
+    ],  //一个插件对应一个语法
+  "presets": [["@babel/preset-env", {
+    "useBuiltIns": "usage",
+    "corejs": 3
+  }]]  //编译到指定的环境
+}
