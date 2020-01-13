@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>getName</title>
+</head>
+<body>
+  <script>
+    // 前三个：原型链 变量提升 匿名函数声明
+    // 后三个： new 和 . 等运算符优先级
+
+    function Foo() {
+      // 不加声明符 var let 函数会偷偷挂在全局上
+      getName = function() {
+        console.log(1);
+      }
+      // 谁调用指向谁 这里指向window
+      return this;
+    }
+    Foo.getName = function() {
+      console.log(2);
+    }
+    Foo.prototype.getName = function() {
+      console.log(3);
+    }
+    // 变量声明提升 赋值行为留在原地 即被var getName=...覆盖 全局getName发生了替换
+    var getName = function() {
+      console.log(4);
+    }
+    function getName() {
+      console.log(5);
+    }
+    Foo.getName();  //   2
+    getName();   //   5 X 4
+    Foo().getName(); //   1   ···Foo执行后三个全局getName Foo中被替换为 getName(1)
+    getName();  //  X 1
+
+  // .(成员访问) 优先级19
+  // new不带小括号 不传参 无参数列表 优先级18
+  // 所以 先Foo.getName()再new
+    new Foo.getName();  //  2
+    
+  // new有参数列表 优先级19 
+  // 同等优先级 从左往右 面向对象取原型链上的getName
+    new Foo().getName();  //  3 
+    // 同等于(new Foo()).getName()
+
+    new new Foo().getName();  //  3
+    // 同等于new(new Foo().getName)()
+    // 先new Foo()再取getName 取到getName（取到不是值，是getName函数）再又是一次new操作 
+  </script>
+</body>
+</html>
