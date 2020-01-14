@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>圣杯</title>
+  <link rel="stylesheet" href="./base.css">
+  <style>
+      .left, .middle, .right {
+      float: left;
+      /* 丧失块级的能力 */
+    }
+    .middle {
+      width: 100%
+    }
+    .left, .right {
+      width: 100px;
+    }
+    .left {
+      /* 想对于相邻元素的值 百分比如何计算？ */
+      margin-left: -100%;
+    }
+    .right {
+      /* 给负值挤到最右 相对于自己的宽度 */
+      margin-left: -100px;
+    }
+    /* 把middle挤到中间 */
+    .middle {
+      padding-left: 100px;
+      padding-right: 100px;
+    /* 消除padding对盒模型的影响 包含边框以内都是盒子宽高的范围 */
+      box-sizing: border-box;
+    }
+    /* 双飞翼  里面加一个盒子 */
+    .inner {
+      margin-left: 100px;
+      margin-right: 100px;
+    }
+    /* 怎样挤到中间的？ */
+  </style>
+</head>
+<body>
+  <div class="middle">middle</div>
+  <div class="left">left</div>
+  <div class="right">right</div>
+</body>
+</html>
