@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.js"></script>
+  <link href="https://cdn.bootcss.com/weui/2.1.2/style/weui.min.css" rel="stylesheet">
+  <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <header class="nav">
+    <i class="arrow-left"></i>
+    <span>影片详情</span>
+  </header>
+  <div class="page">
+    <!-- section1 -->
+    <section class="movie-header">
+      <div class="movie">
+        <div class="movie-background"></div>
+        <div class="movie-filter"></div>
+        <div class="movie-container">
+          <!-- pic -->
+          <div class="movie-cover">
+            <a href="#" class="link">
+              <!-- a标签是行内标签，无法设置宽高，除非把它设置为块级：display block -->
+              <img src="" alt="" id="moviePic">
+            </a>
+          </div>
+          <!-- detail -->
+          <div class="movie-content">
+            <div class="movie-name">
+              <span></span>
+            </div>
+            <div class="movie-ename">
+              <span></span>
+            </div>
+            <!-- star -->
+            <div class="movie-score">
+              <div class="released-score">
+                <div class="rating" id="rating">
+                  <!-- <img src="./images/star.png" alt="">
+                                    <img src="./images/star.png" alt="">
+                                    <img src="./images/star.png" alt="">
+                                    <img src="./images/star.png" alt="">
+                                    <img src="./images/star-h.png" alt=""> -->
+                  <span class="rating-score"></span>
+                </div>
+                <div class="score-num">
+                  (<span></span>人评分)
+                </div>
+              </div>
+            </div>
+            <div class="movie-detail">
+              <p class="movie-type">
+                <span></span>
+                <img src="https://s0.meituan.net/bs/?f=myfe/canary:/asgard/images/movie/movie-tag-2DIMAX.png" alt="">
+              </p>
+              <p class="address-time">
+                <span class="address"></span>
+                /
+                <span class="time"></span>
+                分钟
+              </p>
+              <p class="date"></p>
+            </div>
+          </div>
+        </div>
+        <div class="operating flex">
+          <div class="movie-watch flex1">
+            <img src="./images/heart.png" alt="">
+            <span>想看</span>
+          </div>
+          <div class="movie-mark flex1">
+            <img src="./images/star2.png" alt="">
+            <span>评分</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- section2 -->
+    <section class="section-seperate section-expander">
+      <div class="text-expander">
+        <div class="text-expander__content close">
+          <p></p>
+        </div>
+        <div class="text-expander__button">
+          <i class="icon-shevron__down"></i>
+        </div>
+      </div>
+    </section>
+    <!-- section3 -->
+    <section class="section-seperate">
+      <p class="action-list section-til">演职人员</p>
+      <ul class="movie-celebrities">
+        <!-- <li>
+                    <a href="#" class="link">
+                        <div class="movie-celebrities__pic">
+                            <img src="http://p1.meituan.net/movie/8f9372252050095067e0e8d58ef3d939156407.jpg@160w_224h_1e_1c" alt="">
+                        </div>
+                        <span class="movie-celebrities-nick">qqq</span>
+                        <span class="movie-celebrities-roles">ppp</span>
+                    </a>
+                </li> -->
+      </ul>
+    </section>
+    <!-- section4 -->
+    <section class="section-seperate section-expander">
+      <p class="section-til">票房</p>
+
+      <div class="weui-flex">
+        <div class="weui-flex__item">
+          <div class="placeholder">
+            <span id="ranking">31231</span>
+            <p>昨日票房排行</p>
+          </div>
+        </div>
+        <div class="weui-flex__item">
+          <div class="placeholder">
+            <span id="bookingWeek">31231</span>
+            <p>首周票房（万）</p>
+          </div>
+        </div>
+        <div class="weui-flex__item">
+          <div class="placeholder">
+            <span id="bookingTotal">31231</span>
+            <p>累计票房（万）</p>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+    <!-- section5 -->
+    <section class="movie-photo section-seperate">
+      <p class="action-list section-til">视频和剧照</p>
+      <ul class="movie-photo__lists">
+        <!-- <li class="stage-img-container">
+            <a href="#" class="link">
+                <div class="movie-celebrities__pic">
+                    <img src="" alt="">
+                </div>
+            </a>
+        </li> -->
+      </ul>
+    </section>
+
+
+    <div id="toast">
+      <div class="weui-mask_transparent"></div>
+      <div class="weui-toast">
+        <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+        <p class="weui-toast__content">已标记为想看</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      /* 立即执行函数：不需要调用就会自己执行*/
+      $.ajax({
+        /* 发起接口请求：去服务器上请求数据 */
+        url: './mock.json',
+        /* url, type参数是必须的 */
+        type: 'get',
+        /* 请求数据的方式：get, post... */
+        success: function (res) {
+          /* 如果成功获取数据，执行function */
+          console.log(res)
+          $('#moviePic').attr('src', res.data
+            .moviePic) /* = document.getElementById("moviePic") */ /* attr 修改属性，类似属性名可百度 */
+          $('.movie-name span').html(res.data.name) /* html 插入属性，类似属性名可百度 */
+          $('.movie-ename span').html(res.data.nameEnglish)
+          $('.rating-score').html(res.data.grade)
+          $('.score-num span').html(res.data.people)
+          star(res.data.star)
+          $('.address-time .address').html(res.data.where)
+          $('.address-time .time').html(res.data.time)
+          $('.movie-detail .movie-type span').html(res.data.type)
+          $('.movie-detail .date').html(res.data.date)
+          $('.text-expander p').html(res.data.desc)
+          celebrity(res.data.person)
+          photo(res.data.pictures)
+        }
+      })
+
+      function star(e) {
+        let num = Math.floor(e);
+        if (e > num) {
+          $('#rating').prepend('<img src="./images/star-h.png" alt="">') /* 在当前结构中插入子节点，prepend往前插入 */
+        }
+        for (let i = 0; i < num; i++) {
+          $('#rating').prepend('<img src="./images/star.png" alt="">')
+        }
+      }
+      //点击想看按钮执行的操作
+      /* 原生js: document.querySelector('.movie-watch').addEventListener('click') */
+      $('.movie-watch').click(function () {
+        if ($(this).hasClass('active')) {
+          /* = if ($(movie-watch) */
+          $('.movie-watch').removeClass('active')
+          $('.movie-watch img').attr('src', './images/heart.png')
+          $('#toast .weui-toast__content').html('已取消想看')
+        } else {
+          $('.movie-watch').addClass('active') /* jQuery添加类名的方式 */
+          $('.movie-watch img').attr('src', './images/heart1.png') /* attr更改属性，替换图片 */
+          $('#toast .weui-toast__content').html('已标记为想看')
+        }
+
+        $('#toast').css('display', 'block')
+        setTimeout(() => {
+          $('#toast').css('display', 'none')
+        }, 1500)
+      })
+
+      // 收放详情
+      $('.text-expander').click(function () {
+        if ($('.text-expander__content').hasClass('close')) {
+          $('.text-expander__content').removeClass('close')
+          $('.icon-shevron__down').addClass('up')
+        } else {
+          $('.text-expander__content').addClass('close')
+          $('.icon-shevron__down').removeClass('up')
+        }
+      })
+
+      //演职人员
+      function celebrity(e) {
+        for (let n of e) {
+          /* es6新增for循环的方法，n是数组e里的每一项元素，但不是下标 */
+          $('.movie-celebrities').append(`<li>
+                    <a href="#" class="link">
+                        <div class="movie-celebrities__pic">
+                            <img src="${n.avatal}" alt="">
+                        </div>
+                        <span class="movie-celebrities-nick">${n.name}</span>
+                        <span class="movie-celebrities-roles">${n.sort}</span>
+                    </a>
+                </li>`)
+        }
+      }
+      //视频和剧照
+      function photo(e){
+        for (let n of e){
+          // pictures为数组对象，遍历出的值即下标
+          $('.movie-photo__lists').append(`
+          <li class="stage-img-container">
+            <a href="#" class="link">
+                <div class="movie-celebrities__pic">
+                    <img src="${n}" alt="">
+                </div>
+            </a>
+        </li>`)
+        }
+      }
+    })()
+  </script>
+</body>
+
+</html>
