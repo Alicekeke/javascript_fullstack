@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    font-size: 0;
+  }
+  /* 直接子元素 */
+  ul > li {
+    /* 不能影响到原来的渲染文本 回到既定状态 */
+    font-size: initial;
+    display: inline-block;
+    background-color: #fba;
+  }
+  </style>
+</head>
+<body>
+  <ul>
+    <li>A</li><li>B</li>
+    <!-- 任何代码在body都会被解析成不同的节点类型  包括这行注释-->
+    <li>C</li>
+  </ul>
+  <script>
+    const ul = document.querySelector('ul')
+    console.log(ul.childNodes);
+    // NodeList 中嵌套文本节点
+    ul.childNodes.forEach( node => {
+      console.log(node, node.nodeType)
+      
+    });
+  </script>
+</body>
+</html>
