@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;margin: 0;
+    }
+    body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;    
+      /* vh=(view height) vw=(view width) 相对于视口的尺寸，1vh = 1/100 of view height*/
+      width: 100vw;
+    }
+    .out {
+      background-color: blue;
+      width: 100%;
+      margin: 0 10px;
+      font-size: 20px;
+      text-align: center;
+      /* padding: 25% 0;   padding百分比相对于宽度来计算 */
+    }
+    .in {
+      height: 0;
+      padding: 25% 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="out">
+   <div class="in">
+    A
+   </div>
+  </div>
+</body>
+</html>
