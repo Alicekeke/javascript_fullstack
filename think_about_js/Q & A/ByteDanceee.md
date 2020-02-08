@@ -96,13 +96,13 @@ console.log('promise2');
 console.log('script end');
 ```
 
-new 是同步操作，await后面的代码等待执行 Promise.then
-stack: [script start, async1 start, async2, promise1, script end]
-task: [setTimeout,]
-microtask: [await async2(), resolve();]
+new 是同步操作，await后面的代码等待执行 Promise.then      
+stack: [script start, async1 start, async2, promise1, script end]       
+task: [setTimeout,]     
+microtask: [await async2(), resolve();]       
 
 先执行同步任务，再清空所有的微任务，再从宏任务里取出一个任务执行，如果取出的这个宏任务里有微任务，则再一次性执行完这些微任务。
-故执行顺序是：script start, async1 start, async2, promise1, script end, async1 end, promise2, setTimeout.
+故执行顺序是：script start, async1 start, async2, promise1, script end, async1 end, promise2, setTimeout.     
 
 5. this考点：以最小改动解决以下代码的错误（可以用es6）。
 ```js
@@ -123,9 +123,9 @@ const obj = {
     obj.say();
 ```
    1. setTimeout里面的回调是指向window的，替换为es6的箭头函数`setTimeout( () => {} )`
-   2. 定义循环变量i要用let块级作用域，否则i会循环为最后的值才执行回调函数。
-箭头函数默认指向定义它时，所处上下文的对象的this指向。即ES6箭头函数里this的指向就是上下文里对象this指向，偶尔没有上下文对象，this就指向window，即使是call，apply，bind等显式绑定方法也不能改变箭头函数this的指向。
-在这里，obj调用了say方法，this指向直接调用者obj，setTimeout箭头函数，this指向最近的函数的this指向，即也是obj。
+   2. 定义循环变量i要用let块级作用域，否则i会循环为最后的值才执行回调函数。     
+箭头函数默认指向定义它时，所处上下文的对象的this指向。即ES6箭头函数里this的指向就是上下文里对象this指向，偶尔没有上下文对象，this就指向window，即使是call，apply，bind等显式绑定方法也不能改变箭头函数this的指向。      
+在这里，obj调用了say方法，this指向直接调用者obj，setTimeout箭头函数，this指向最近的函数的this指向，即也是obj。    
  
 6. 实现ES5中Function原型的bind方法， 使得以下程序最后能输出'success'
 ```js
