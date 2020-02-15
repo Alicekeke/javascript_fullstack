@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <input type="file" id="file" />
+    <script>
+      // 请求封装（ajax）
+      // 1. http并发上传blob，上传chunk 用POST
+      // 2. 当blob被Promise。all完全上传完后再发送一个merge的请求
+      function request({
+        url,
+        method = "POST",
+        data,
+        headers = {},
+        requestList //上传的文件列表
+      }) {
+        return new Promise(resolve => {
+          const xhr = new XMLHttpRequest();
+          xhr.open(method, url);
+          Object.keys(headers).forEach(key => {
+            xhr.setRequestHeader(key, headers[key]); //设置请求头
+          });
+          xhr.send(data);
+          xhr.onload = e => {
+            resolve({
+              data: e.target.response
+            });
+          };
+        });
+      }
+      // 发送请求合并的merage请求
+      const mergeRequest = async () => {
+        await request({
+          url: "http://localhost:3001/merage",
+          headers: {
+            "content-type": "application/json"
+          }
+        });
+        alert("上传成功");
+      };
+
+      document
+        .getElementById("file")
+        .addEventListener("change", async event => {
+          // console.log(files) //file对象
+          const file = event.target.files[0]; //es6 文件对象 FilesList
+          if (!file) return;
+          console.log(file);
+          const file_name = file.name.split(".")[0];
+          console.log(Object.prototype.toString.call(file));
+          console.log(file.slice(0, 524288)); //array slice 得到BLOB（二进制大对象）
+          console.log(Object.prototype.toString.call(file.slice(0, 524288))); //BLOB（二进制大对象）
+          let cur = 0,
+            size = 0.5 * 1024 * 1024;
+          const fileChunkList = [];
+          while (cur < file.size) {
+            fileChunkList.push({
+              // cur 断点 slice(start, end)
+              file: file.slice(cur, cur + size)
+            });
+            cur = cur + size;
+          }
+          console.log(fileChunkList);
+          // 将切片好的blob文件另存，ajax手动封装
+          const requestList = fileChunkList
+            .map(({ file }, index) => {
+              const formData = new FormData();
+              formData.append("chunk", file); //append添加表单数据
+              formData.append("filename", `${file_name}-${index}`);
+              return {
+                formData
+              };
+            })
+            .map(async ({ formData }) =>
+              request({
+                url: "http://localhost:3000", //前后端api链接
+                data: formData
+              })
+            );
+          await Promise.all(requestList); //并发now
+          console.log(requestList);
+        });
+    </script>
+  </body>
+</html>
