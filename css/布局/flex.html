@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+      <!--flexbox布局-->
+      <section class="layout flexbox">
+        <style>
+            .layout.flexbox .left-center-right{
+                display: flex;
+            }
+            .layout.flexbox .left {
+                width: 300px;
+                background: red;
+            }
+            .layout.flexbox .center {
+                background: yellow;
+                flex: 1; /*flex:1  则当前块在保证左右设置固定宽度的情况下，剩下的内容都是自己的*/
+            }
+            .layout.flexbox .right {
+                width: 300px;
+                background: blue;
+            }
+        </style>
+        <h1>三栏布局</h1>
+        <article class="left-center-right">
+            <div class="left"></div>
+            <div class="center">
+                <h2>flexbox解决方案</h2>
+            </div>
+            <div class="right"></div>
+        </article>
+    </section>
+</body>
+<script>
+  // flex布局比较完美的。目前移动端的布局也都是用flexbox。 flexbox的缺点就是IE10开始支持，但是IE10的是-ms形式的
+</script>
+</html>
