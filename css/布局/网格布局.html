@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .layout.grid .left-center-right {
+    display: grid;
+    width: 100%;
+    /* 网格布局通过设置 grid-template-columns 和 grid-template-row 设置每一个宽高行高 */
+    /* 设置第二列auto，则其宽度基本上等于该列单元格的最大宽度，除非单元格内容设置了min-width，且这个值大于最大宽度。 */
+    grid-template-columns: 300px auto 300px;
+    grid-template-rows: 150px;
+    /*行高*/
+  }
+
+  .layout.grid .left {
+    background: red;
+  }
+
+  .layout.grid .center {
+    background: yellow;
+  }
+
+  .layout.grid .right {
+    background: blue;
+  }
+</style>
+
+<body>
+  <!--网格布局-->
+  <section class="layout grid">
+
+    <h1>网格三栏布局布局</h1>
+    <article class="left-center-right">
+      <div class="left"></div>
+      <div class="center">
+        <h2>网格布局解决方案</h2>
+      </div>
+      <div class="right"></div>
+    </article>
+  </section>
+
+</body>
+
+</html>
