@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            /* 整个弹窗组件 */
+            .component_popup {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 100;
+            }
+
+            /* 遮罩背景 */
+            .popup_mask {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            /* 弹窗区域（内容 + close）：严格居中 */
+            .popup_content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            /* 弹窗的内容部分 */
+            .content_box {
+                width: 15.45rem;
+                height: 19.32rem;
+                background: url(http://img.smyhvae.com/20191010_1500_red-packet.png) no-repeat;
+                background-size: 15.45rem 19.32rem;
+            }
+
+            /* 弹窗的close图标 */
+            .content_close {
+                width: 1.25em;
+                height: 1.25em;
+                background: url(http://img.smyhvae.com/20191010_1500_close.png) no-repeat;
+                background-size: 1.25rem 1.25rem;
+                margin: 0 auto;
+                margin-top: 0.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">默认文档流中的页面主体</div>
+
+        <div class="component_popup">
+            <div class="popup_mask"></div>
+            <div class="popup_content">
+                <div class="content_box"></div>
+                <div class="content_close"></div>
+            </div>
+        </div>
+    </body>
+</html>
+
